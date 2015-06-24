@@ -36,6 +36,8 @@ app.controller('mainCtrl', function($scope, $rootScope, $http) {
         $scope.find();        
     }
 
+    $scope.insert();
+
     $scope.eliminar = function(id){
         $http.delete('/prueba/'+id).
         success(function(data, status, headers, config) {
