@@ -8,7 +8,7 @@
  * Controller of the quaestioApp
  */
 angular.module('quaestioApp')
-  .controller('CategoriesCTRL', ['$scope','$rootScope',function ($scope,$rootScope) {
+  .controller('CategoriesCTRL', ['$scope','$rootScope','$mdDialog',function ($scope,$rootScope,$mdDialog) {
 
     $rootScope.showSideNav = true;
     $rootScope.showToolbar = true;
@@ -46,7 +46,7 @@ angular.module('quaestioApp')
     $scope.addCategory = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/communities/categories/add.html',
+        templateUrl: '/backend/views/communities/categories/add.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
@@ -60,7 +60,7 @@ angular.module('quaestioApp')
     $scope.editCategory = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/communities/categories/edit.html',
+        templateUrl: '/backend/views/communities/categories/edit.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
