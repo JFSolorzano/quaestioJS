@@ -9,7 +9,6 @@ app.run(function($rootScope, $http) {
         }).
         error(function(data, status, headers, config) {
             console.log("Errorazo.");
-            console.log(data);
         });    
     }
 
