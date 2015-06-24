@@ -34,10 +34,8 @@ app.controller('mainCtrl', function($scope, $rootScope, $http) {
     $scope.find();
 
     $scope.insert = function(){
-        if($rootScope.insert('quaestioJS', 'Pruebita')){
-            console.log('CHEQUEADO.');
-            $scope.find();
-        }
+        $rootScope.insert('quaestioJS', {"field" : "value "+(Math.floor((Math.random() * 100) + 1))});
+        $scope.find();        
     }
 
     $scope.insert();
