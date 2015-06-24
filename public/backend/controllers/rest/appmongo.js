@@ -17,7 +17,6 @@ app.run(function($rootScope, $http) {
         $http.post('/prueba/'+tmpcollection, tmpdata).
         success(function(data, status, headers, config) {
             console.log('INSERTADO.');
-            return true;
         }).
         error(function(data, status, headers, config) {
             console.log("Errorazo.");
