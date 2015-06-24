@@ -1,0 +1,65 @@
+<div>
+    <h2 class="text-center">FAQ</h2>
+    <table st-table="tabledata" class="table table-striped" layout-padding style="padding: 24px;">
+        <thead>
+        <tr align="center">
+            <th>
+                <md-input-container colspan="3">
+                    <label >Busqueda global</label >
+                    <input class="input-sm" type="search" ng-model="finder" ng-keyup="search()"/>
+                </md-input-container>
+            </th>
+        </tr>
+        <tr>
+            <tr>
+                <th>
+                    <md-input-container colspan="3">
+                        <label >Pregunta</label >
+                        <input class="input-sm" ng-model="request.Pregunta"/>
+                    </md-input-container >
+                </th>
+                <th>
+                    <md-input-container colspan="3" >
+                        <label >Respuesta</label >
+                        <input class="input-sm" ng-model="request.Respuesta"/>
+                    </md-input-container >
+                </th>
+                <th>
+                    <md-button class="md-raised" ng-click="insert('faq')">
+                        Agregar
+                    </md-button>
+                </th>
+                <th>
+                    <md-button class="md-raised md-primary" ng-click="findAndModify('faq')">
+                        Modificar
+                    </md-button>
+                </th>
+                <th>
+                    <md-button class="md-raised md-warn" ng-click="clean()">
+                        Limpiar
+                    </md-button>
+                </th>
+            </tr>
+        </tr>
+        <tr>
+            <th st-sort="Nombre">Pregunta</th>
+            <th st-sort="Apellidos">Respuesta</th>
+            <th>CRUD</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in response">
+            <td>{{row.Pregunta}}</td>
+            <td>{{row.Respuesta}}</td>
+            <td>
+                <md-button class="md-raised md-warn" ng-click="deleteOne('faq', row.ID)">
+                    Eliminar
+                </md-button>
+                <md-button class="md-raised md-primary" ng-click="findOne('faq', row.ID)">
+                    Editar
+                </md-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

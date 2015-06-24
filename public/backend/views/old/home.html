@@ -1,0 +1,57 @@
+<div>
+    <h2 class="text-center">Configuracion de la pantalla de inicio</h2>
+    <md-divider md-inset></md-divider>
+    <br />
+    <br />
+    <div class="row">
+        <md-input-container class="md-icon-float">
+            <label >Titulo de la opcion de comunidades</label >
+            <md-icon src="./files/img/communities.png"></md-icon>
+            <input />
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <label >Titulo de la opcion de la academia</label >
+            <md-icon src="./files/img/academy.png"></md-icon>
+            <input />
+        </md-input-container>
+    </div>
+    <div class="row">
+        <md-input-container class="md-icon-float">
+            <label >Texto de opcion de nuevo registro</label >
+            <md-icon src="./files/img/register.png"></md-icon>
+            <input />
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <label >Texto de opcion de iniciar sesion</label >
+            <md-icon src="./files/img/login.png"></md-icon>
+            <input />
+        </md-input-container>
+    </div>
+    <div class="row">
+        <md-input-container class="md-icon-float">
+            <label >Logo</label >
+            <md-icon src="./files/img/icon.png"></md-icon>
+            <input />
+        </md-input-container>
+    </div>
+    <div class="row">
+        <table st-table="tabledata" class="table table-striped" layout-padding style="padding: 24px;">
+            <thead>
+            <tr>
+                <th st-sort="date">Fecha</th>
+                <th st-sort="image">Imagen</th>
+                <th st-sort="position">Posicion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in tabledata">
+                <td>{{row.date | date}}</td>
+                <td>{{row.image}}</td>
+                <td>{{row.position}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

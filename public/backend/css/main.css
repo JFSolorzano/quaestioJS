@@ -1,0 +1,90 @@
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.option-list .md-button {
+  color: inherit;
+  text-align: left;
+  width: 97%;
+}
+
+.option-list .selected {
+  color: #03a9f4;
+}
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  font-size:14px;
+  height:100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Sidenav area */
+
+md-list .md-button {
+  color: inherit;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+}
+md-list .md-button.selected {
+  color: #03a9f4;
+}
+
+md-sidenav  md-list {
+  padding: 0px 0px 8px 0px;
+}
+
+
+/* Primary content area */
+
+#content {
+  overflow: hidden;
+}
+
+#content  {
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5px;
+}
+
+/* Utils */
+
+.content-wrapper {
+  position: relative;
+}
+
+/* Typography support coming in 0.8.0 */
+
+md-toolbar h1 {
+  font-size: 1.250em;
+  font-weight: 400;
+}
+
+
+md-bottom-sheet  md-icon {
+  margin-right:20px;
+}
+
+
+md-grid-list { margin: 8px; }
+.gray { background: #B6B6B6; }
+.green { background: #CDDC39; }
+.yellow { background: #ffeb3b; }
+.blue { background: #03A9F4; }
+.purple { background: #7C4DFF; }
+.red { background: #F44336; }
+.dorange { background: #FF5722; }
+.orange { background: #FF9800; }
+.bgray { background: #607D8B; }
+.amber { background: #FFC107; }
+.brown { background: #795548; }
+.dgreen { background: #4CAF50; }
+
+.user-avatar {
+  border-radius: 99%;
+}

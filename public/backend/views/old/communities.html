@@ -1,0 +1,34 @@
+
+<div >
+    <h2 class="text-center">Comunidades</h2>
+    <table st-table="tabledata" class="table table-striped" layout-padding style="padding: 24px;">
+        <thead>
+        <tr align="center">
+            <th>
+                <md-input-container >
+                    <label >Buscar por fecha</label >
+                    <input st-search="date"  class="input-sm form-control" type="search"/>
+                </md-input-container>
+            </th>
+            <th>
+                <md-input-container colspan="3">
+                    <label >Busquesda global</label >
+                    <input st-search  class="input-sm form-control" type="search"/>
+                </md-input-container >
+            </th>
+        </tr>
+        <tr>
+            <th st-sort="date">Fecha</th>
+            <th st-sort="question">Nombre</th>
+            <th st-sort="answer">Logo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in tabledata">
+            <td>{{row.date | date}}</td>
+            <td>{{row.name}}</td>
+            <td>{{row.logo}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

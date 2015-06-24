@@ -1,0 +1,53 @@
+<md-dialog aria-label="Crear nuevo permiso" id="admin-user-create">
+
+  <md-toolbar class="md-accent">
+    <h3 class="md-toolbar-tools">
+      Crear Nuevo Permiso
+    </h3>
+  </md-toolbar>
+
+  <md-content>
+    <section class="section slim" layout="column">
+      <p>
+        Crear nuevo permiso de usuario
+      </p>
+    </section>
+
+    <form name="createForm">
+
+      <section class="section" layout="column">
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex>
+            <label>Nombre del permiso</label>
+            <input name="name" ng-model="create.permission.name"
+                   ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+                   required mongoose-error remote-unique="User">
+            <div ng-messages="createForm.name.$error">
+              <div ng-message="required">El nombre del permiso es requerido</div>
+              <div ng-message="mongoose">Este permiso ya esta en uso</div>
+              <div ng-message="remote-unique">Este permiso ya este en uso</div>
+            </div>
+          </md-input-container>
+				</span>
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex class="last">
+            <label>Descripcion</label>
+            <textarea name="description" ng-model="create.permission.description"></textarea>
+          </md-input-container>
+				</span>
+
+      </section>
+
+    </form>
+
+  </md-content>
+
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">Cancelar</md-button>
+    <md-button ng-disabled="createForm.$invalid" ng-click="add('datos')" class="md-primary md-raised">Crear Permiso</md-button>
+  </div>
+
+</md-dialog>

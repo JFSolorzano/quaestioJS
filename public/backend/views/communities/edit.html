@@ -1,0 +1,53 @@
+<md-dialog aria-label="Editar Comunidad" id="admin-user-create">
+
+  <md-toolbar class="md-accent">
+    <h3 class="md-toolbar-tools">
+      Editar Comunidad
+    </h3>
+  </md-toolbar>
+
+  <md-content>
+    <section class="section slim" layout="column">
+      <p>
+        Editar la comunidad
+      </p>
+    </section>
+
+    <form name="editForm">
+
+      <section class="section" layout="column">
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex>
+            <label>Nombre de la comunidad</label>
+            <input name="name" ng-model="edit.community.name"
+                   ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+                   required mongoose-error remote-unique="User">
+            <div ng-messages="editForm.name.$error">
+              <div ng-message="required">El nombre de la comunidad es requerido</div>
+              <div ng-message="mongoose">Esta comunidad ya existe</div>
+              <div ng-message="remote-unique">El nombre de la comunidad ya esta en uso</div>
+            </div>
+          </md-input-container>
+				</span>
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex class="last">
+            <label>Descripcion</label>
+            <textarea name="info" ng-model="edit.community.info"></textarea>
+          </md-input-container>
+				</span>
+
+      </section>
+
+    </form>
+
+  </md-content>
+
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="edit.close()">Cancelar</md-button>
+    <md-button ng-disabled="editForm.$invalid" ng-click="edit.edit(createForm)" class="md-primary md-raised">Editar Comunidad</md-button>
+  </div>
+
+</md-dialog>

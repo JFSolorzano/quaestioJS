@@ -1,0 +1,74 @@
+
+<div>
+    <h2 class="text-center"> Creadores</h2>
+    <table st-table="tabledata" class="table table-striped" layout-padding style="padding: 24px;">
+        <thead>
+        <!-- <tr align="center">
+            <th>
+                <md-input-container colspan="3">
+                    <label >Busqueda global</label >
+                    <input class="input-sm" type="search" ng-model="finder" ng-keyup="search()"/>
+                </md-input-container>
+            </th>
+        </tr> -->
+        <tr>
+            <tr>
+                <th>
+                    <md-input-container colspan="3">
+                        <label >Nombre</label >
+                        <input class="input-sm" ng-model="request.Nombre"/>
+                    </md-input-container >
+                </th>
+                <th>
+                    <md-input-container colspan="3" >
+                        <label >Apellidos</label >
+                        <input class="input-sm" ng-model="request.Apellidos"/>
+                    </md-input-container >
+                </th>
+                <th>
+                    <md-input-container colspan="3" >
+                        <label >Correo</label >
+                        <input class="input-sm" ng-model="request.Correo"/>
+                    </md-input-container >
+                </th>
+                <th>
+                    <md-button class="md-raised" ng-click="insert('personas')">
+                        Agregar
+                    </md-button>
+                </th>
+                <th>
+                    <md-button class="md-raised md-primary" ng-click="findAndModify('personas')">
+                        Modificar
+                    </md-button>
+                </th>
+                <th>
+                    <md-button class="md-raised md-warn" ng-click="clean()">
+                        Limpiar
+                    </md-button>
+                </th>
+            </tr>
+        </tr>
+        <tr>
+            <th st-sort="Nombre">Nombre</th>
+            <th st-sort="Apellidos">Apellidos</th>
+            <th st-sort="Correo">Correo</th>
+            <th>CRUD</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in response">
+            <td>{{row.Nombre}}</td>
+            <td>{{row.Apellidos}}</td>
+            <td>{{row.Correo}}</td>
+            <td>
+                <md-button class="md-raised md-warn" ng-click="deleteOne('personas', row.ID)">
+                    Eliminar
+                </md-button>
+                <md-button class="md-raised md-primary" ng-click="findOne('personas', row.ID)">
+                    Editar
+                </md-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

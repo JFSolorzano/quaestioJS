@@ -1,0 +1,53 @@
+<md-dialog aria-label="Nueva FAQ" id="admin-user-create">
+
+  <md-toolbar class="md-accent">
+    <h3 class="md-toolbar-tools">
+      Nueva pregunta frecuente
+    </h3>
+  </md-toolbar>
+
+  <md-content>
+    <section class="section slim" layout="column">
+      <p>
+        Nueva pregunta frecuente
+      </p>
+    </section>
+
+    <form name="createForm">
+
+      <section class="section" layout="column">
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex>
+            <label>Pregunta</label>
+            <input name="name" ng-model="create.faq.name"
+                   ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+                   required mongoose-error remote-unique="User">
+            <div ng-messages="createForm.name.$error">
+              <div ng-message="required">La pregunta es requerida</div>
+              <div ng-message="mongoose">Esta pregunta ya existe</div>
+              <div ng-message="remote-unique">La pregunta ya existe</div>
+            </div>
+          </md-input-container>
+				</span>
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex class="last">
+            <label>Descripcion</label>
+            <textarea name="info" ng-model="create.faq.info"></textarea>
+          </md-input-container>
+				</span>
+
+      </section>
+
+    </form>
+
+  </md-content>
+
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="create.close()">Cancelar</md-button>
+    <md-button ng-disabled="createForm.$invalid" ng-click="create.create(createForm)" class="md-primary md-raised">Crear FAQ</md-button>
+  </div>
+
+</md-dialog>

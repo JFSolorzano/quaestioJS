@@ -1,0 +1,35 @@
+<md-data-table-toolbar ng-show="!selected.length">
+  <h2 class="md-title">Cambios de los terminos de uso</h2>
+  <md-button >
+    <ng-md-icon icon="add_circle"></ng-md-icon>
+  </md-button>
+</md-data-table-toolbar>
+
+<md-data-table-toolbar class="alternate" ng-show="selected.length">
+  <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} seleccionado</div>
+  <md-button >
+    <ng-md-icon icon="create"></ng-md-icon>
+  </md-button>
+  <md-button >
+    <ng-md-icon icon="remove_circle"></ng-md-icon>
+  </md-button>
+</md-data-table-toolbar>
+
+<md-data-table-container>
+  <table md-data-table md-row-select="selected">
+    <thead md-order="query.order" md-trim-column-names>
+    <tr>
+      <th order-by="content">Cambios</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="c in changes">
+      <td>{{c.content}}</td>
+    </tr>
+    </tbody>
+  </table>
+</md-data-table-container>
+
+<md-data-table-toolbar layout-align="end">
+  <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="9"></md-data-table-pagination>
+</md-data-table-toolbar>

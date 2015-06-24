@@ -1,0 +1,17 @@
+<div layout="column" layout-align="center center">
+    <div class="row text-center"><h2>Configuraciones generales de la interfaz</h2></div>
+    <md-divider md-inset></md-divider>
+    <br />
+    <br />
+    <div class="row">
+        <md-input-container>
+            <label >Titulo del sitio</label >
+            <input />
+        </md-input-container>
+    </div>
+    <div class="row">
+        <md-select ng-model="colors" placeholder="Color de la barra de navegacion">
+            <md-option ng-value="c.color" data-ng-repeat="c in colors">{{c.color}}</md-option>
+        </md-select>
+    </div>
+</div>

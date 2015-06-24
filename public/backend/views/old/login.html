@@ -1,0 +1,18 @@
+<form ng-submit="authenticate()" name="loginForm" ng-controller="md-ctrl">
+    <md-input-container>
+        <label>Usuario</label>
+        <input name="username" ng-model="loginInfo.username" required/>
+        <div ng-messages="loginForm.username.$error" ng-if='loginForm.username.$dirty'>
+            <div ng-message="required">Este campo es requerido.</div>
+        </div>
+    </md-input-container>
+
+    <md-input-container>
+        <label>Contrasena</label>
+        <input name="password" type="password" ng-model="loginInfo.password" required/>
+        <div ng-messages="loginForm.password.$error" ng-if='loginForm.password.$dirty'>
+            <div ng-message="required">Este campo es requerido.</div>
+        </div>
+    </md-input-container>
+    <md-button type="submit" ng-click="validateUser(loginInfo.username,loginInfo.password)" class="md-primary btn btn-primary">Ingresar</md-button>
+</form>

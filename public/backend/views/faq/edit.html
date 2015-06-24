@@ -1,0 +1,53 @@
+<md-dialog aria-label="Editar FAQ" id="admin-user-create">
+
+  <md-toolbar class="md-accent">
+    <h3 class="md-toolbar-tools">
+      Editar la pregunta
+    </h3>
+  </md-toolbar>
+
+  <md-content>
+    <section class="section slim" layout="column">
+      <p>
+        Editar la pregunta frecuente
+      </p>
+    </section>
+
+    <form name="editForm">
+
+      <section class="section" layout="column">
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex>
+            <label>Pregunta</label>
+            <input name="name" ng-model="edit.faq.name"
+                   ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+                   required mongoose-error remote-unique="User">
+            <div ng-messages="editForm.name.$error">
+              <div ng-message="required">La pregunta es requerida</div>
+              <div ng-message="mongoose">Esta pregunta ya existe</div>
+              <div ng-message="remote-unique">La pregunta ya existe</div>
+            </div>
+          </md-input-container>
+				</span>
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex class="last">
+            <label>Descripcion</label>
+            <textarea name="info" ng-model="edit.faq.info"></textarea>
+          </md-input-container>
+				</span>
+
+      </section>
+
+    </form>
+
+  </md-content>
+
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="edit.close()">Cancelar</md-button>
+    <md-button ng-disabled="editForm.$invalid" ng-click="edit.edit(createForm)" class="md-primary md-raised">Editar FAQ</md-button>
+  </div>
+
+</md-dialog>

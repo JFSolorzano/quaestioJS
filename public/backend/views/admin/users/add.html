@@ -1,0 +1,92 @@
+<md-dialog aria-label="Crear Usuario" id="admin-user-create">
+
+  <md-toolbar class="md-accent">
+    <h3 class="md-toolbar-tools">
+      Crear Nuevo Usuario
+    </h3>
+  </md-toolbar>
+
+  <md-content>
+    <section class="section slim" layout="column">
+      <p>
+        Crear un nuevo usuario que pueda logearse en la aplicacion.
+      </p>
+    </section>
+
+    <form name="createForm">
+
+      <section class="section slim" layout="column">
+				<span layout="row" layout-align="start center">
+					<span flex="33">Puede logearse</span>
+					<md-switch name="active" class="no-label" aria-label="usuario activo" ng-model="create.user.active"></md-switch>
+				</span>
+      </section>
+
+      <section class="section" layout="column">
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex>
+            <label>Alias</label>
+            <input name="name" ng-model="create.user.name"
+                   ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+                   required mongoose-error remote-unique="User">
+            <div ng-messages="createForm.name.$error">
+              <div ng-message="required">El Alias es requerido</div>
+              <div ng-message="mongoose">El usuario ya esta en uso</div>
+              <div ng-message="remote-unique">El usuario ya esta en uso</div>
+            </div>
+          </md-input-container>
+
+					<md-input-container ng-class="{'md-input-has-value': create.user.role}" ng-cloak flex>
+            <label>Rol</label>
+            <md-select name="role" ng-model="create.user.role" placeholder="Rol" required flex>
+              <md-select-label>{{create.getNameForRole(create.user.role) || 'Rol'}}</md-select-label>
+              <md-option ng-value="role.role" ng-repeat="role in create.userRoles">{{role.name}}</md-option>
+            </md-select>
+            <div ng-messages="createForm.role.$error">
+              <div ng-message="required">El Rol es requerido</div>
+            </div>
+          </md-input-container>
+				</span>
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex>
+            <label>Contrasena</label>
+            <input name="password" type="password" ng-model="create.user.password" required>
+            <div ng-messages="createForm.password.$error">
+              <div ng-message="required">La Contrasena es requerida</div>
+            </div>
+          </md-input-container>
+				</span>
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex>
+            <label>Repetir la contrasena</label>
+            <input name="passwordRepeat" type="password"  ng-model="create.user.passwordRepeat" required repeat-input="create.user.password">
+            <div ng-messages="createForm.passwordRepeat.$error">
+              <div ng-message="required">Por favor, repita la contrasena</div>
+              <div ng-message="repeat-input">Las contrasenas no coinciden</div>
+            </div>
+          </md-input-container>
+				</span>
+
+				<span layout="row" layout-sm="column">
+					<md-input-container flex class="last">
+            <label>Informacion</label>
+            <textarea name="info" ng-model="create.user.info"></textarea>
+          </md-input-container>
+				</span>
+
+      </section>
+
+    </form>
+
+  </md-content>
+
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button ng-click="create.close()">Cancelar</md-button>
+    <md-button ng-disabled="createForm.$invalid" ng-click="create.create(createForm)" class="md-primary md-raised">Crear Usuario</md-button>
+  </div>
+
+</md-dialog>

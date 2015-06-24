@@ -1,0 +1,49 @@
+<!DOCTYPE>
+<html ng-app="quaestioJS">
+<head>
+	<link rel="stylesheet" href="archives/css/bootstrap.min.css">
+	<link rel="stylesheet" href="archives/css/bootstrap-theme.min.css">
+	<title>quaestioJS</title>
+</head>
+<body>
+	<div class="container" ng-controller="mainCtrl">
+		<h1>HOLI FRONTEND</h1>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>Correo</th>
+					<th>CRUD</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input class="form-control" ng-model="persona.nombre"></td>
+					<td><input class="form-control" ng-model="persona.apellido"></td>
+					<td><input class="form-control" ng-model="persona.email"></td>
+					<td><button class="btn btn-primary" ng-click="agregar()">Agregar</button></td>
+					<td><button class="btn btn-info" ng-click="actualizar()">Editar</button></td>
+					<td><button class="btn btn-info" ng-click="limpiar()">Limpiar</button></td>
+				</tr>
+				<tr ng-repeat="x in testData">
+					<th>{{x.nombre}}</th>
+					<th>{{x.apellido}}</th>
+					<th>{{x.email}}</th>
+					<th>
+						<button class="btn btn-danger" ng-click="eliminar(x._id)">Eliminar</button>
+					</th>
+					<th>
+						<button class="btn btn-warning" ng-click="editar(x._id)">Editar</button>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src="archives/js/angular.min.js"></script>
+	<script src="controllers/app.js"></script>
+	
+</body>
+</html>

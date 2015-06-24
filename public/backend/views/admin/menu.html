@@ -1,0 +1,24 @@
+<md-grid-list  md-cols="6" md-row-height="1:1" md-gutter="8px">
+
+  <md-grid-tile class="blue"  md-rowspan="1" md-colspan="6" ng-click="goTo('usuarios')">
+    <ng-md-icon icon="person" style="fill: #FFFFFF" size="200"></ng-md-icon>
+    <md-grid-tile-footer>
+      <h3>Usuarios</h3>
+    </md-grid-tile-footer>
+  </md-grid-tile>
+
+  <md-grid-tile class="amber" md-rowspan="1" md-colspan="3" ng-click="goTo('roles')">
+    <ng-md-icon icon="content_paste" style="fill: #949494" size="100"></ng-md-icon>
+    <md-grid-tile-footer>
+      <h3>Roles</h3>
+    </md-grid-tile-footer>
+  </md-grid-tile>
+
+  <md-grid-tile class="bgray" md-rowspan="1" md-colspan="3" ng-click="goTo('permisos')">
+    <ng-md-icon icon="recent_actors" style="fill: #ffbd05" size="100"></ng-md-icon>
+    <md-grid-tile-footer>
+      <h3>Permisos</h3>
+    </md-grid-tile-footer>
+  </md-grid-tile>
+
+</md-grid-list>
