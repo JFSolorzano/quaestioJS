@@ -49,7 +49,7 @@ angular.module('quaestioApp')
     $scope.addPermission = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/admin/permissions/add.html',
+        templateUrl: 'views/admin/permissions/add.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
@@ -63,7 +63,7 @@ angular.module('quaestioApp')
     $scope.editPermission = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/admin/permissions/edit.html',
+        templateUrl: 'views/admin/permissions/edit.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })

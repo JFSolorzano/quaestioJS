@@ -51,7 +51,7 @@ angular.module('quaestioApp')
     $scope.addFaq = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/faq/add.html',
+        templateUrl: 'views/faq/add.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
@@ -65,7 +65,7 @@ angular.module('quaestioApp')
     $scope.editFaq = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/faq/edit.html',
+        templateUrl: 'views/faq/edit.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })

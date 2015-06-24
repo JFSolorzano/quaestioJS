@@ -8,7 +8,7 @@
  * Controller of the quaestioApp
  */
 angular.module('quaestioApp')
-  .controller('MainCtrl', ['$scope','$rootScope','$location',function ($scope,$rootScope,$location) {
+  .controller('MainCTRL', ['$scope','$rootScope','$location',function ($scope,$rootScope,$location) {
 
     $rootScope.showSideNav = false;
     $rootScope.showToolbar = false;

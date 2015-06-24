@@ -53,7 +53,7 @@ angular.module('quaestioApp')
     $scope.addRole = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/admin/roles/add.html',
+        templateUrl: 'views/admin/roles/add.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
@@ -67,7 +67,7 @@ angular.module('quaestioApp')
     $scope.editRole = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/admin/roles/edit.html',
+        templateUrl: 'views/admin/roles/edit.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })

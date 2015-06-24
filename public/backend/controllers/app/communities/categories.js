@@ -46,7 +46,7 @@ angular.module('quaestioApp')
     $scope.addCategory = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/backend/views/communities/categories/add.html',
+        templateUrl: 'views/communities/categories/add.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
@@ -60,7 +60,7 @@ angular.module('quaestioApp')
     $scope.editCategory = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/backend/views/communities/categories/edit.html',
+        templateUrl: 'views/communities/categories/edit.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })

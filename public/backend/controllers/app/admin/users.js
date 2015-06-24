@@ -50,7 +50,7 @@ angular.module('quaestioApp')
     $scope.addUser = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/admin/users/add.html',
+        templateUrl: 'views/admin/users/add.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
@@ -64,7 +64,7 @@ angular.module('quaestioApp')
     $scope.editUser = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/views/admin/users/edit.html',
+        templateUrl: 'views/admin/users/edit.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })

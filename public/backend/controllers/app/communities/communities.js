@@ -46,7 +46,7 @@ angular.module('quaestioApp')
     $scope.addCommunity = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/backend/views/communities/add.html',
+        templateUrl: 'views/communities/add.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })
@@ -60,7 +60,7 @@ angular.module('quaestioApp')
     $scope.editCommunity = function(ev) {
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: '/backend/views/communities/edit.html',
+        templateUrl: 'views/communities/edit.html',
         parent: angular.element(document.body),
         targetEvent: ev,
       })

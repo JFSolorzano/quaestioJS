@@ -1,17 +1,124 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html class="no-js">
 <head>
     <meta charset="utf-8">
-    <title>QUAESTIO TEMP</title>
+    <title>Quaestio | Administration</title>
+
+    <!--META's=============================================-->
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
+    <!--Dependencies====================================================================================-->
+    <link rel="stylesheet" href="../global/libs/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="../global/libs/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../global/libs/angular-material-data-table/md-data-table.min.css"/>
+    <!--Styles====================================-->
     <link rel="stylesheet" href="css/main.css">
 
 </head>
-<body layout="column" ng-app="quaestioJS"  ng-controller="mainCtrl">
-<!-- libraries -->
+<body layout="column" ng-app="quaestioApp" ng-controller="AppCtrl as app">
+<!--[if lt IE 7]>
+<p class="browsehappy">Estas usando un navegador <strong>desactualizado</strong>. Por favor <a href="http://browsehappy.com/">actualiza tu navegador</a> para mejorar tu experiencia.</p>
+<![endif]-->
+
+<div layout="row" flex class="content-wrapper">
+
+    <!--Navigation bar==================================================================================================-->
+    <md-sidenav ng-show="showSideNav" layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')">
+
+        <!--Logged User Info================================================-->
+        <md-toolbar class="md-tall md-hue-2">
+            <span flex></span>
+            <div layout="column" class="md-toolbar-tools-bottom inset">
+                <user-avatar></user-avatar><!--Directive-->
+                <span></span>
+                <div>{{user.Alias}}</div>
+            </div>
+        </md-toolbar>
+
+        <!--Navigation List============================================================-->
+        <md-list class="option-list">
+            <md-list-item ng-repeat="item in menuOptions">
+                <md-button ng-click="goTo( '{{ item.ref }}' )" md-ink-ripple="#bbb">
+                    <ng-md-icon icon="{{ item.icon }}"></ng-md-icon>
+                    {{item.name}}
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+
+    <div layout="column" class="relative" layout-fill role="main">
+        <!--Title Bar==============================================================================================-->
+        <md-toolbar layout="row" ng-show="showToolbar">
+            <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button menuBtn">
+                <md-icon aria-label="Menu"
+                         md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+            </md-button>
+            <h1 layout-align-gt-sm="center" class="md-toolbar-tools">{{toolbarTitle}}</h1>
+        </md-toolbar>
+        <!--Injected Content===========================================================-->
+        <div flex layout="row" tabIndex="-1" role="main" class="md-whiteframe-z5" >
+            <div class="inset">
+
+            </div>
+            <md-card flex-gt-sm="90" flex-gt-md="90" flex-gt-lg="95">
+                <md-card-content ui-view></md-card-content>
+            </md-card>
+        </div>
+    </div>
+
+
+</div>
+<!-- Google Analytics: change UA-XXXXX-X to be the site's ID -->
+
+<script>
+    !function (A, n, g, u, l, a, r) {
+        A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+                    (A[l].q = A[l].q || []).push(arguments)
+                }, A[l].l = +new Date, a = n.createElement(g),
+                r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+    }(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+</script>
+
+<!--Dependencies==============================================================================-->
 <script src="../global/libs/angular/angular.js"></script>
-<!--controllers-->
-<script src="controllers/rest/appmongo.js"></script>
+<script src="../global/libs/angular-animate/angular-animate.js"></script>
+<script src="../global/libs/angular-cookies/angular-cookies.js"></script>
+<script src="../global/libs/angular-messages/angular-messages.js"></script>
+<script src="../global/libs/angular-resource/angular-resource.js"></script>
+<script src="../global/libs/angular-route/angular-route.js"></script>
+<script src="../global/libs/angular-sanitize/angular-sanitize.js"></script>
+<script src="../global/libs/angular-touch/angular-touch.js"></script>
+<script src="../global/libs/angular-aria/angular-aria.js"></script>
+<script src="../global/libs/angular-material/angular-material.js"></script>
+<script src="../global/libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="../global/libs/angular-material-icons/angular-material-icons.min.js"></script>
+<script src="../global/libs/angular-material-data-table/md-data-table.min.js"></script>
+<script src="../global/libs/angular-ui-route/angular-ui-router.min.js"></script>
+
+<!--Controllers=======================================================-->
+<script src="controllers/app/app.js"></script>
+<script src="controllers/app/other/main.js"></script>
+<script src="controllers/app/admin/users.js"></script>
+<script src="controllers/app/admin/roles.js"></script>
+<script src="controllers/app/admin/permissions.js"></script>
+<script src="controllers/app/other/about.js"></script>
+<script src="controllers/app/other/login.js"></script>
+<script src="controllers/app/other/account.js"></script>
+<script src="controllers/app/communities/categories.js"></script>
+<script src="controllers/app/communities/communities.js"></script>
+<script src="controllers/app/other/company.js"></script>
+<script src="controllers/app/other/contact.js"></script>
+<script src="controllers/app/other/faq.js"></script>
+<script src="controllers/app/other/general.js"></script>
+<script src="controllers/app/other/team.js"></script>
+<script src="controllers/app/other/tou.js"></script>
+<script src="controllers/app/admin/menu.js"></script>
+<script src="controllers/directives/avatar.js"></script>
+
 </body>
 </html>
