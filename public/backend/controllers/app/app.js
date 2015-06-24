@@ -159,6 +159,11 @@ angular
         ref: "comunidades"
       },
       {
+        name: "Categorias",
+        icon: "dashboard",
+        ref: "categorias-comunidades"
+      },
+      {
         name: "FAQ",
         icon: "question_answer",
         ref: "faq"
