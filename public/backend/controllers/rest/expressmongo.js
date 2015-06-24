@@ -13,8 +13,9 @@ app.get('/prueba/:tmpcollection', function(req, res){
 	});
 });
 
-app.post('/prueba', function(req, res){
-	db.quaestioJS.insert(req.body, function(err, doc){
+app.post('/prueba/:tmpcollection', function(req, res){
+	var tmpcollection = req.params.tmpcollection;
+	db.collection(tmpcollection).insert(req.body, function(err, doc){
 		res.json(doc);
 	});
 });
