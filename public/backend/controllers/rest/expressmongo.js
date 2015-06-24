@@ -6,8 +6,9 @@ var db = mongojs('quaestioJS', ['quaestioJS']);
 
 app.use(bodyParser.json());
 
-app.get('/prueba', function(req, res){
-	db.quaestioJS.find(function(err, docs){
+app.get('/prueba/:tmpcollection', function(req, res){
+	var tmpcollection = req.params.tmpcollection;
+	db.collection(tmpcollection).find(function(err, docs){
 		res.json(docs);
 	});
 });
