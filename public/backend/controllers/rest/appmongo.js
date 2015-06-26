@@ -1,17 +1,19 @@
 var app = angular.module('quaestioJS', []);
 
-app.run(function($rootScope, $http) {
+app.run(function($rootScope, $http, $q) {
     
     $rootScope.response = "";
 
     $rootScope.find = function(tmpcollection){
+        var deferred = $q.defer();
         $http.get('/prueba/'+tmpcollection).
         success(function(data, status, headers, config) {
-            $rootScope.response = data;
+            deferred.resolve(data);
         }).
         error(function(data, status, headers, config) {
             console.log("Errorazo.");
-        });    
+        });   
+        return deferred.promise; 
     }
 
     $rootScope.insert = function(tmpcollection, tmpdata){
@@ -35,13 +37,15 @@ app.run(function($rootScope, $http) {
     }
 
     $rootScope.findOne = function(tmpcollection, value){
+        var deferred = $q.defer();
         $http.get('/prueba/'+tmpcollection+'/'+value).
         success(function(data, status, headers, config) {
-            $rootScope.response = data;
+            deferred.resolve(data);
         }).
         error(function(data, status, headers, config) {
             console.log("Errorazo.");
         }); 
+        return deferred.promise; 
     }
 
 });
@@ -49,9 +53,12 @@ app.run(function($rootScope, $http) {
 app.controller('mainCtrl', function($scope, $rootScope, $http) {   
     
     $scope.find = function(){
-        $rootScope.find('quaestioJS');
-        console.log("Imprimiendo desde root");
-        console.log($rootScope.response);
+        var myPromise = $rootScope.find('quaestioJS');
+        myPromise.then(function(resolve){
+            console.log(resolve);
+        }, function(reject){
+            console.log(reject)      
+        });
     }    
 
     $scope.insert = function(){
@@ -65,10 +72,16 @@ app.controller('mainCtrl', function($scope, $rootScope, $http) {
     }
 
     $scope.findOne = function(){
-        $rootScope.findOne('quaestioJS', 'value 33');        
+        var myPromise = $rootScope.findOne('quaestioJS', 'value 33');
+        myPromise.then(function(resolve){
+            console.log(resolve);
+        }, function(reject){
+            console.log(reject)      
+        });
     }
 
     $scope.find();
+    $scope.findOne();
     
 
     $scope.actualizar = function(){
