@@ -20,16 +20,24 @@ app.post('/prueba/:tmpcollection', function(req, res){
 	});
 });
 
-app.delete('/prueba/:id', function(req, res){
-	var id = req.params.id;
-	db.quaestioJS.remove({_id: mongojs.ObjectId(id)}, function(err, doc){
+app.delete('/prueba/:tmpcollection/:value', function(req, res){
+	var tmpcollection = req.params.tmpcollection;
+	var value = req.params.value;
+	// db.collection(tmpcollection).remove({_id: mongojs.ObjectId(id)}, function(err, doc){
+	// 	res.json(doc);
+	// });
+	db.collection(tmpcollection).remove({field: value}, function(err, doc){
 		res.json(doc);
 	});
 });
 
-app.get('/prueba/:id', function(req, res){
-	var id = req.params.id;
-	db.quaestioJS.findOne({_id: mongojs.ObjectId(id)}, function(err, doc){
+app.get('/prueba/:tmpcollection/:value', function(req, res){
+	var tmpcollection = req.params.tmpcollection;
+	var value = req.params.value;
+	// db.collection(tmpcollection).findOne({_id: mongojs.ObjectId(id)}, function(err, doc){
+	// 	res.json(doc);
+	// });
+	db.collection(tmpcollection).findOne({field: value}, function(err, doc){
 		res.json(doc);
 	});
 });
