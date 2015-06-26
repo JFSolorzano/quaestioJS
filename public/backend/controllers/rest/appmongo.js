@@ -48,6 +48,15 @@ app.run(function($rootScope, $http, $q) {
         return deferred.promise; 
     }
 
+    $rootScope.findAndModify = function(tmpcollection, value, tmpdata){
+        $http.put('/prueba/'+tmpcollection+'/'+value, tmpdata).
+        success(function(data, status, headers, config) {
+            console.log('Actualizado.');
+        }).
+        error(function(data, status, headers, config) {
+            console.log("Errorazo.");
+        }); 
+    }
 });
 
 app.controller('mainCtrl', function($scope, $rootScope, $http) {   
@@ -80,20 +89,16 @@ app.controller('mainCtrl', function($scope, $rootScope, $http) {
         });
     }
 
+    $scope.findAndModify = function(){
+        $rootScope.findAndModify('quaestioJS', 'value 33', {"field" : "value "+(Math.floor((Math.random() * 100) + 1))+" COP"});
+        $scope.find();        
+    }
+
     $scope.find();
-    $scope.findOne();
     
 
-    $scope.actualizar = function(){
-        $http.put('/prueba/'+$scope.persona._id, $scope.persona).
-        success(function(data, status, headers, config) {
-            find();
-            $scope.limpiar();
-        }).
-        error(function(data, status, headers, config) {
-            console.log("Errorazo.");
-        }); 
-    }
+    
+    
 
     $scope.limpiar = function(){
         $scope.persona = "";

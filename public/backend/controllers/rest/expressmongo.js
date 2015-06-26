@@ -42,15 +42,23 @@ app.get('/prueba/:tmpcollection/:value', function(req, res){
 	});
 });
 
-app.put('/prueba/:id', function(req, res){
-	var id = req.params.id;
-	db.quaestioJS.findAndModify({
-		query: {_id: mongojs.ObjectId(id)},
-		update: {$set: {nombre: req.body.nombre, apellido: req.body.apellido, email: req.body.email}},
+app.put('/prueba/:tmpcollection/:value', function(req, res){
+	var tmpcollection = req.params.tmpcollection;
+	var value = req.params.value;
+	// db.collection(tmpcollection).findAndModify({
+	// 	query: {_id: mongojs.ObjectId(id)},
+	// 	update: {$set: req.body},
+	// 	new: true
+	// }, function(err, doc){
+	// 	res.json(doc);
+	// });
+	db.collection(tmpcollection).findAndModify({
+		query: {field: value},
+		update: {$set: req.body},
 		new: true
 	}, function(err, doc){
 		res.json(doc);
-	})
+	});
 });
 
 module.exports = app;
