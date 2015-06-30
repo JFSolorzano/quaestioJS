@@ -1,25 +1,53 @@
-<p ng-show="login.error" class="md-warn">{{login.error.message}}</p>
+<md-toolbar class="md-warn" ng-show="loginError">
+  <h1 class="md-toolbar-tools">
+    Error. Please check your credentials and try again.
+  </h1>
+</md-toolbar>
+<div class="vertical-center" >
+  <form ng-submit="authenticate()" name="loginForm">
+    <md-input-container >
+      <label>Usuario</label>
+      <input name="name" reauired ng-model="loginInfo.username">
+      <div ng-messages="projectForm.description.$error">
+        <div ng-message="required">Este campo es requerido</div>
+      </div>
+    </md-input-container>
 
-<form name="loginForm" layout="column" layout-fill layout-align="space-between" ng-submit="login.login(loginForm)">
+    <md-input-container ">
+      <label>Contrasena</label>
+      <input name="password" reauired type="password" ng-model="loginInfo.password">
+      <div ng-messages="projectForm.description.$error">
+        <div ng-message="required">Este campo es requerido</div>
+      </div>
+    </md-input-container>
 
-  <md-input-container md-is-error="loginForm.name.$error.required && loginForm.name.$dirty">
-    <label>Usuario</label>
-    <input name="name" ng-model="login.user.name" required/>
-    <div ng-messages="loginForm.name.$error" ng-if="loginForm.name.$dirty">
-      <div ng-message="required">El usuario es requerido</div>
-    </div>
-  </md-input-container>
+    <md-button ng-click="authenticate()" class="md-primary btn btn-primary">Iniciar Sesion</md-button>
+  </form>
+</div>
 
-  <md-input-container md-is-error="loginForm.password.$error.required && loginForm.password.$dirty">
-    <label>Contrasena</label>
-    <input name="password" type="password" ng-model="login.user.password" required/>
-    <div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$dirty">
-      <div ng-message="required">La contrasena es requerida</div>
-    </div>
-  </md-input-container>
 
-		<span layout="row" layout-align="end">
-			<md-button class="md-primary md-raised" ng-disabled="!loginForm.$valid" type="submit">Ingresar</md-button>
-		</span>
+<!--<p ng-show="login.error" class="md-warn">{{login.error.message}}</p>-->
 
-</form>
+<!--<form name="loginForm" layout="column" layout-fill layout-align="space-between" ng-submit="login.login(loginForm)">-->
+
+  <!--<md-input-container md-is-error="loginForm.name.$error.required && loginForm.name.$dirty">-->
+    <!--<label>Usuario</label>-->
+    <!--<input name="name" ng-model="login.user.name" required/>-->
+    <!--<div ng-messages="loginForm.name.$error" ng-if="loginForm.name.$dirty">-->
+      <!--<div ng-message="required">El usuario es requerido</div>-->
+    <!--</div>-->
+  <!--</md-input-container>-->
+
+  <!--<md-input-container md-is-error="loginForm.password.$error.required && loginForm.password.$dirty">-->
+    <!--<label>Contrasena</label>-->
+    <!--<input name="password" type="password" ng-model="login.user.password" required/>-->
+    <!--<div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$dirty">-->
+      <!--<div ng-message="required">La contrasena es requerida</div>-->
+    <!--</div>-->
+  <!--</md-input-container>-->
+
+		<!--<span layout="row" layout-align="end">-->
+			<!--<md-button class="md-primary md-raised" ng-disabled="!loginForm.$valid" type="submit">Ingresar</md-button>-->
+		<!--</span>-->
+
+<!--</form>-->

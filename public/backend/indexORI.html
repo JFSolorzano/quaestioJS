@@ -40,7 +40,15 @@
         <!--Navigation List============================================================-->
         <md-list class="option-list">
             <md-list-item ng-repeat="item in menuOptions">
-                <md-button ng-click="goTo( '{{ item.ref }}' )" md-ink-ripple="#bbb">
+                <md-button ng-click="goTo( '{{ item.ref }}' )" style="{{ item.style }}" md-ink-ripple="#bbb">
+                    <ng-md-icon icon="{{ item.icon }}"></ng-md-icon>
+                    {{item.name}}
+                </md-button>
+            </md-list-item>
+            <md-divider></md-divider>
+            <md-subheader></md-subheader>
+            <md-list-item ng-repeat="item in sessionOptions">
+                <md-button ng-click="goTo( '{{ item.ref }}' )" style="{{ item.style }}" md-ink-ripple="#bbb">
                     <ng-md-icon icon="{{ item.icon }}"></ng-md-icon>
                     {{item.name}}
                 </md-button>
@@ -50,7 +58,7 @@
 
     <div layout="column" class="relative" layout-fill role="main">
         <!--Title Bar==============================================================================================-->
-        <md-toolbar layout="row" ng-show="showToolbar">
+        <md-toolbar  layout="row" ng-show="showToolbar">
             <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button menuBtn">
                 <md-icon aria-label="Menu"
                          md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>

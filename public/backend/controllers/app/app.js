@@ -268,8 +268,9 @@ angular
             });
 
         $mdThemingProvider.theme('default')
-        .primaryPalette('blue')
-        .accentPalette('orange');
+            .primaryPalette('deep-orange')
+            .accentPalette('blue-grey');
+
     })
     .controller('AppCtrl', ['$scope', '$mdSidenav', '$rootScope', '$location', function ($scope, $mdSidenav, $rootScope, $location) {
 
@@ -288,54 +289,80 @@ angular
         $scope.menuOptions = [
             {
                 name: "Comunidades",
-                icon: "dashboard",
-                ref: "comunidades"
+                icon: "view_quilt",
+                ref: "comunidades",
+                style: "fill: #40c4ff"
             },
             {
                 name: "Categorias",
                 icon: "dashboard",
-                ref: "categorias-comunidades"
+                ref: "categorias-comunidades",
+                style: "fill: #3f51b5"
             },
             {
                 name: "FAQ",
                 icon: "question_answer",
-                ref: "faq"
+                ref: "faq",
+                style: "fill: #8bc34a"
             },
             {
                 name: "TOU",
                 icon: "info",
-                ref: "terminos-de-uso"
+                ref: "terminos-de-uso",
+                style: "fill: #eeff41"
             },
             {
                 name: "Compania",
                 icon: "business",
-                ref: "compania"
+                ref: "compania",
+                style: "fill: #ff5722"
             },
             {
                 name: "Equipo",
                 icon: "people",
-                ref: "equipo"
+                ref: "equipo",
+                style: "fill: #ff9800"
             },
             {
                 name: "Acerca del Proyecto",
                 icon: "description",
-                ref: "informacion-publica"
+                ref: "informacion-publica",
+                style: "fill: #009688"
             },
             {
                 name: "Contacto",
                 icon: "my_location",
-                ref: "contacto"
+                ref: "contacto",
+                style: "fill: #e040fb"
+
             },
             {
                 name: "Generalidades",
                 icon: "group_work",
-                ref: "generalidades"
+                ref: "generalidades",
+                style: "fill: #ffff00"
             },
             {
                 name: "Administracion",
                 icon: "speaker_notes",
-                ref: "administracion"
+                ref: "administracion",
+                style: "fill: #7c4dff"
             }
+        ];
+
+        $scope.sessionOptions = [
+            {
+                name: "Cerrar Sesion",
+                icon: "logout",
+                ref: "/ingresar",
+                style: "fill: #727272"
+            },
+            {
+                name: "Cuenta",
+                icon: "settings",
+                ref: "/configuracion",
+                style: "fill: #727272"
+            },
         ];
 
         $scope.showListBottomSheet = function ($event) {
@@ -349,4 +376,38 @@ angular
             });
         };
 
-    }]);
+    }])
+    .run(function($rootScope, $http, $q) {
+
+        $rootScope.select = function(query){
+            var deferred = $q.defer();
+            $http.get('/quaestioJS/'+query).
+                success(function(data, status, headers, config) {
+                    deferred.resolve(data);
+                }).
+                error(function(data, status, headers, config) {
+                    console.log("Errorazo.");
+                });
+            return deferred.promise;
+        }
+
+        $rootScope.insertOrUpdate = function(query, tmpdata){
+            $http.post('/quaestioJS/'+query, tmpdata).
+                success(function(data, status, headers, config) {
+                    console.log(data);
+                }).
+                error(function(data, status, headers, config) {
+                    console.log(data);
+                });
+        }
+
+        $rootScope.delete = function(query){
+            $http.delete('/quaestioJS/'+query).
+                success(function(data, status, headers, config) {
+                    console.log('Eliminado.');
+                }).
+                error(function(data, status, headers, config) {
+                    console.log("Errorazo.");
+                });
+        }
+    });

@@ -66,7 +66,7 @@ app.controller('mainCtrl', function($scope, $rootScope, $http) {
         myPromise.then(function(resolve){
             console.log(resolve);
         }, function(reject){
-            console.log(reject)      
+            console.log(reject);
         });
     }    
 
