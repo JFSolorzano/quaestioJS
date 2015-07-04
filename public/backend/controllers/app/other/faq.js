@@ -23,17 +23,16 @@ angular.module('quaestioApp')
         $scope.delete = $rootScope.delete;
 
         $scope.select = function(){
-            $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion").then(function(resolve){
-                $scope.Data = resolve;
-                console.log(resolve);
-            }, function(reject){
-                console.log(reject);
-            });
+            $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
+                .then(function(resolve){
+                    $scope.Data = resolve;
+                    console.log(resolve);
+                }, function(reject){
+                    console.log(reject);
+                });
         };
 
         $scope.select();
-
-        $scope.insertOrUpdate('aisbd',{asd:'valor cito'});
 
         $scope.query = {
             order: 'question',
@@ -49,26 +48,6 @@ angular.module('quaestioApp')
             if (newValue === oldValue) {
                 return;
             }
-
-            $scope.faq = [
-                {
-                    q: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-                    a: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-                },
-                {
-                    q: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-                    a: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-                },
-                {
-                    q: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-                    a: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-                },
-                {
-                    q: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-                    a: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-                },
-
-            ];
         });
 
         $scope.addFaq = function (ev) {
