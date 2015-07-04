@@ -8,9 +8,9 @@ app.use(bodyParser.json());
 var pool = mysql.createPool({
     connectionLimit: 5,
     host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'quaestio_frontend',
+    user: 'FRONTEND',
+    password: 'P7K9',
+    database: 'QUAESTIO_FRONTEND',
     debug: false
 });
 

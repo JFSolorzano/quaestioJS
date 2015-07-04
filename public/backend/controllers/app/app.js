@@ -389,7 +389,7 @@ angular
                     console.log("Errorazo.");
                 });
             return deferred.promise;
-        }
+        };
 
         $rootScope.insertOrUpdate = function(query, tmpdata){
             $http.post('/quaestioJS/'+query, tmpdata).
@@ -399,7 +399,7 @@ angular
                 error(function(data, status, headers, config) {
                     console.log(data);
                 });
-        }
+        };
 
         $rootScope.delete = function(query){
             $http.delete('/quaestioJS/'+query).
@@ -409,5 +409,5 @@ angular
                 error(function(data, status, headers, config) {
                     console.log("Errorazo.");
                 });
-        }
+        };
     });

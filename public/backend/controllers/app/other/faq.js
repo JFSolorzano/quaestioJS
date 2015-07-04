@@ -19,7 +19,7 @@ angular.module('quaestioApp')
         };
         $scope.delete = $rootScope.delete;
         $scope.select = function(){
-            var myPromise = $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion ASC");
+            var myPromise = $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion");
             myPromise.then(function(resolve){
                 $scope.Data = resolve;
                 console.log(resolve);
@@ -27,6 +27,7 @@ angular.module('quaestioApp')
                 console.log(reject);
             });
         };
+        $scope.select();
         $scope.insertOrUpdate('aisbd',{asd:'valor cito'});
         $scope.query = {
             order: 'question',
@@ -35,7 +36,7 @@ angular.module('quaestioApp')
         };
 
         //SCRUD
-
+        
 
         //Modal Dialogs
         $scope.$watchCollection('query', function (newValue, oldValue) {
