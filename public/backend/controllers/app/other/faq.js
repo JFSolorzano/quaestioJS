@@ -15,6 +15,13 @@ angular.module('quaestioApp')
 
         //SCRUD
 
+        $scope.AddQuestion = function(){
+            $scope.insertOrUpdate("INSERT INTO FAQ (Pregunta, Respuesta, FechaCreacion, FechaModificacion) VALUES (?, ?, now(), now())",{
+                Question: $scope.Question,
+                Answer: $scope.Answer
+            });
+        };
+
         $scope.insertOrUpdate = function(query, data){
             $rootScope.insertOrUpdate(query, data);
             $scope.select();
