@@ -20,7 +20,7 @@
 				<span layout="row" layout-sm="column">
 					<md-input-container flex>
             <label>Pregunta</label>
-            <input name="name" ng-model="$parent.Question"
+            <input name="name" ng-model="Question"
                    required mongoose-error remote-unique="User">
             <div ng-messages="createForm.name.$error">
               <div ng-message="required">La pregunta es requerida</div>
@@ -33,7 +33,7 @@
 				<span layout="row" layout-sm="column">
 					<md-input-container flex class="last">
             <label>Descripcion</label>
-            <textarea name="info" ng-model="$parent.Answer"></textarea>
+            <textarea name="info" ng-model="Answer"></textarea>
           </md-input-container>
 				</span>
 

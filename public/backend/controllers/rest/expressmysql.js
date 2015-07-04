@@ -47,10 +47,10 @@ function executepstm(query, req, res) {
 
 
 app.post('/quaestioJS/:query', function (req, res) {
-    console.log("POST OR PUT - '" + req.params.query + "'");
+    console.log("POST OR PUT - '" + req.params.query + "' '"+req.body);
     var query = req.params.query;
     res.json(req.body);
-    //executepstm(query, req, res);
+    executepstm(query, req, res);
 });
 
 app.delete('/quaestioJS/:query', function (req, res) {
