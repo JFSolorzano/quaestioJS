@@ -13,22 +13,28 @@ angular.module('quaestioApp')
         $rootScope.showSideNav = true;
         $rootScope.showToolbar = true;
 
+        //SCRUD
+
         $scope.insertOrUpdate = function(query, data){
             $rootScope.insertOrUpdate(query, data);
             $scope.select();
         };
+
         $scope.delete = $rootScope.delete;
+
         $scope.select = function(){
-            var myPromise = $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion");
-            myPromise.then(function(resolve){
+            $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion").then(function(resolve){
                 $scope.Data = resolve;
                 console.log(resolve);
             }, function(reject){
                 console.log(reject);
             });
         };
+
         $scope.select();
+
         $scope.insertOrUpdate('aisbd',{asd:'valor cito'});
+
         $scope.query = {
             order: 'question',
             limit: 5,
