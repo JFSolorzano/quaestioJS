@@ -25,7 +25,7 @@ angular.module('quaestioApp')
         $scope.select = function(){
             $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
                 .then(function(resolve){
-                    $scope.Data = resolve;
+                    $scope.FaqData = resolve;
                     console.log(resolve);
                 }, function(reject){
                     console.log(reject);
