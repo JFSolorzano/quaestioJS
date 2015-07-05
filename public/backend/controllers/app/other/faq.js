@@ -16,7 +16,7 @@ angular.module('quaestioApp')
         //SCRUD
 
         $scope.AddQuestion = function(){
-            $scope.insertOrUpdate("INSERT INTO FAQ SET  ?",{
+            $scope.insertOrUpdate("INSERT INTO faq SET ?",{
                 Pregunta: $scope.Question,
                 Respuesta: $scope.Answer
             });

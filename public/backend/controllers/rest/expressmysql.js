@@ -30,11 +30,12 @@ function executequery(req, res) {
 }
 
 function executepstm(query, req, res) {
+    var tmpdata = req;
     console.log("JSON FUNC");
-    console.log(req); 
+    console.log(tmpdata); 
     try {
         pool.getConnection(function (err, connection) {
-            var consulta = connection.query(query, req, function (err, result) {
+            var consulta = connection.query(query+" ?", tmpdata, function (err, result) {
                 connection.release();
                 if (!err) {
                     res.json(result);
