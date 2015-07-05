@@ -16,16 +16,17 @@ angular.module('quaestioApp')
         //SCRUD
 
         $scope.AddQuestion = function(){
-            console.log($scope.Question);
-            $scope.insertOrUpdate("INSERT INTO FAQ (Pregunta, Respuesta, FechaCreacion, FechaModificacion) VALUES (?, ?, now(), now())",{
-                Question: $scope.Question,
-                Answer: $scope.Answer
+            $scope.insertOrUpdate("INSERT INTO FAQ SET  ?",{
+                Pregunta: $scope.Question,
+                Respuesta: $scope.Answer
             });
         };
 
         $scope.insertOrUpdate = function(query, data){
-            $rootScope.insertOrUpdate(query, data);
-            $scope.select();
+            $rootScope.insertOrUpdate(query, data).then(function(data){
+                console.log(data);
+            }, function(data){});
+            // $scope.select();
         };
 
         $scope.delete = $rootScope.delete;
@@ -34,7 +35,6 @@ angular.module('quaestioApp')
             $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
                 .then(function(resolve){
                     $scope.FaqData = resolve;
-                    console.log(resolve);
                 }, function(reject){
                     console.log(reject);
                 });

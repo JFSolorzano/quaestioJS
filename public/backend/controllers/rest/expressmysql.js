@@ -30,16 +30,20 @@ function executequery(req, res) {
 }
 
 function executepstm(query, req, res) {
+    console.log("JSON FUNC");
+    console.log(req); 
     try {
-        var tmpdata = req.body;
         pool.getConnection(function (err, connection) {
-            connection.query(query, tmpdata, function (err, result) {
+            var consulta = connection.query(query, req, function (err, result) {
                 connection.release();
                 if (!err) {
                     res.json(result);
+                }else{
+                    res.json(err);
                 }
             });
-        });
+            console.log(consulta.sql);
+        });   
     } catch (err) {
         res.json(err);
     }
@@ -47,10 +51,9 @@ function executepstm(query, req, res) {
 
 
 app.post('/quaestioJS/:query', function (req, res) {
-    console.log("POST OR PUT - '" + req.params.query + "' '"+req.body);
+    console.log("POST OR PUT - '" + req.params.query);
     var query = req.params.query;
-    res.json(req.body);
-    executepstm(query, req, res);
+    executepstm(query, req.body, res);
 });
 
 app.delete('/quaestioJS/:query', function (req, res) {
