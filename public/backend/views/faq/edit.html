@@ -20,8 +20,7 @@
 				<span layout="row" layout-sm="column">
 					<md-input-container flex>
             <label>Pregunta</label>
-            <input name="name" ng-model="edit.faq.name"
-                   ng-model-options="{updateOn: 'default blur', debounce: {'default': 500, 'blur': 0}}"
+            <input name="name" ng-model="Question"
                    required mongoose-error remote-unique="User">
             <div ng-messages="editForm.name.$error">
               <div ng-message="required">La pregunta es requerida</div>
@@ -34,7 +33,7 @@
 				<span layout="row" layout-sm="column">
 					<md-input-container flex class="last">
             <label>Descripcion</label>
-            <textarea name="info" ng-model="edit.faq.info"></textarea>
+            <textarea name="info" ng-model="Answer"></textarea>
           </md-input-container>
 				</span>
 
@@ -47,7 +46,7 @@
   <div class="md-actions" layout="row">
     <span flex></span>
     <md-button ng-click="edit.close()">Cancelar</md-button>
-    <md-button ng-disabled="editForm.$invalid" ng-click="edit.edit(createForm)" class="md-primary md-raised">Editar FAQ</md-button>
+    <md-button ng-disabled="editForm.$invalid" ng-click="EditQuestion()" class="md-primary md-raised">Editar FAQ</md-button>
   </div>
 
 </md-dialog>

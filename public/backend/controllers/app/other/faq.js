@@ -14,19 +14,19 @@ angular.module('quaestioApp')
         $rootScope.showToolbar = true;
 
         //SCRUD
-
         $scope.AddQuestion = function(){
-            $scope.insertOrUpdate("INSERT INTO faq SET ?",{
+            $scope.insertOrUpdate('INSERT INTO faq SET',{
                 Pregunta: $scope.Question,
                 Respuesta: $scope.Answer
             });
+            $scope.hide();
         };
 
         $scope.insertOrUpdate = function(query, data){
             $rootScope.insertOrUpdate(query, data).then(function(data){
                 console.log(data);
             }, function(data){});
-            // $scope.select();
+            $scope.select();
         };
 
         $scope.delete = $rootScope.delete;
@@ -65,11 +65,11 @@ angular.module('quaestioApp')
                 parent: angular.element(document.body),
                 targetEvent: ev,
             })
-                .then(function (data) {
-                    //Agregar
-                }, function () {
-                    //Cancelar
-                });
+            .then(function (data) {
+                //Agregar
+            }, function () {
+                //Cancelar
+            });
         };
 
         $scope.editFaq = function (ev) {
