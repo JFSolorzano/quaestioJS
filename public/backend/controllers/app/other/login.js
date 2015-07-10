@@ -14,21 +14,33 @@
  	$rootScope.showToolbar = false;
 
  	$scope.authenticate = function(){
- 		$rootScope.manageSession("set", {variable: "isLogged", value: "true"}).then(function(data){
- 			var x = true;
- 			if(!x){
- 				$rootScope.manageSession("set", {variable: "isAdmin", value: "false"}).then(function(data){
- 					location.reload();
- 					location.assign("#/terminos-de-uso");
- 				}, function(data){});
+ 		var query = "SELECT ID, fkCargoID FROM usuarios WHERE Usuario = '"+$scope.loginInfo.username+"' AND Contrasena = '"+btoa($scope.loginInfo.password)+"'";
+
+ 		$rootScope.select(query).then(function(data){
+ 			if(data != ""){
+ 				$rootScope.manageSession("set", {variable: "isLogged", value: "true"}).then(function(sessiondata){
+ 					var x = data[0].fkCargoID == 2 ? true : false;
+ 					$rootScope.manageSession("set", {variable: "User", value: $scope.loginInfo.username});
+ 					if(x){
+ 						$rootScope.manageSession("set", {variable: "isAdmin", value: "false"}).then(function(userdata){
+ 						}, function(userdata){});
+ 					}else{
+ 						$rootScope.manageSession("set", {variable: "isAdmin", value: "true"}).then(function(userdata){
+ 						}, function(userdata){});
+ 					}
+ 				}, function(sessiondata){});
+ 				location.assign("#/");
+ 				location.reload();
  			}else{
- 				$rootScope.manageSession("set", {variable: "isAdmin", value: "true"}).then(function(data){
- 					location.reload();
- 					location.assign("#/");
- 				}, function(data){});
+ 				// $scope.bool = true;
+ 				// var msj = "Usuario o contraseña incorrectos."
+ 				// $scope.error = function(){
+ 				// 	return msj;
+ 				// }
+ 				alert("Usuario o contraseña incorrectos.");
+ 				$scope.loginInfo = "";
  			}
  		}, function(data){});
-
  	}
 
  }]);

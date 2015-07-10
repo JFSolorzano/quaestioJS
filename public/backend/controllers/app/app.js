@@ -304,11 +304,27 @@
     })
 .controller('AppCtrl', ['$scope', '$mdSidenav', '$rootScope', '$location', function ($scope, $mdSidenav, $rootScope, $location) {
 
+    $scope.user = "";
+    $rootScope.showSideNav = false;
+
+    $rootScope.manageSession("get", {variable: "User"}).then(function(data){
+        if(data != ""){
+            $scope.user = data;
+            $rootScope.manageSession("get", {variable: "isAdmin"}).then(function(data){
+                if(data == "true"){
+                    $rootScope.showSideNav = false;                    
+                }else{
+                    $rootScope.showSideNav = true;
+                }
+            }, function(data){});
+        }else{
+        }
+    }, function(data){});
+
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
 
-    $rootScope.showSideNav = false;
     $rootScope.showToolbar = false;
     $rootScope.toolbarTitle = "Panel Administrativo";
 
@@ -481,7 +497,6 @@
     };
 
     $rootScope.manageSession = function(action, tmpdata){
-        console.log("ACCEDE ROOT");
         var deferred = $q.defer();
         $http.post('/Session/'+action, tmpdata).
         success(function(data, status, headers, config) {

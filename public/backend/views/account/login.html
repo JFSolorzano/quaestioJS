@@ -4,7 +4,7 @@
   </h1>
 </md-toolbar>
 <div class="vertical-center" >
-  <form ng-submit="authenticate()" name="loginForm">
+  <form name="loginForm">
     <md-input-container >
       <label>Usuario</label>
       <input name="name" reauired ng-model="loginInfo.username">
@@ -17,7 +17,7 @@
       <label>Contrasena</label>
       <input name="password" reauired type="password" ng-model="loginInfo.password">
       <div ng-messages="projectForm.description.$error">
-        <div ng-message="required">Este campo es requerido</div>
+        <div ng-message="bool">TEST</div>
       </div>
     </md-input-container>
 
