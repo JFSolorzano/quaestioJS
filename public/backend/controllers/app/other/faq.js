@@ -26,7 +26,6 @@ angular.module('quaestioApp')
             $rootScope.insertOrUpdate(query, data).then(function(data){
                 console.log(data);
             }, function(data){});
-            $scope.select();
         };
 
         $scope.delete = $rootScope.delete;
@@ -35,6 +34,7 @@ angular.module('quaestioApp')
             $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
                 .then(function(resolve){
                     $scope.FaqData = resolve;
+                    console.log(resolve);
                 }, function(reject){
                     console.log(reject);
                 });

@@ -139,132 +139,162 @@
     //    .accentPalette('green');
     //
     //})
-    .config(function ($stateProvider, $urlRouterProvider,$mdThemingProvider) {//Usgin ui-route
+    .config(function ($stateProvider, $urlRouterProvider,$mdThemingProvider) {//Using ui-route
         //
         // For any unmatched url, redirect to /
         $urlRouterProvider.otherwise("/");
         //
         // Set up the states
+        
         $stateProvider
+        .state('login', {
+            url: "/login",
+            templateUrl: "views/account/login.html",
+            controller: "LoginCTRL",
+            authenticate: false
+        })
         .state('index', {
             url: "/",
             templateUrl: "views/main.html",
-            controller: "MainCTRL"
+            controller: "MainCTRL",
+            authenticate: true
         })
         .state('usuarios', {
             url: "/usuarios",
             templateUrl: "views/admin/users/list.html",
-            controller: "UsersCTRL"
-        })
-        .state('login', {
-            url: "/ingreso",
-            templateUrl: "views/account/login.html",
-            controller: "LoginCTRL"
+            controller: "UsersCTRL",
+            authenticate: true
         })
         .state('configuracion', {
             url: "/configuracion",
             templateUrl: "views/account/settings.html",
-            controller: "AccountCTRL"
+            controller: "AccountCTRL",
+            authenticate: true
         })
         .state('roles', {
             url: "/roles",
             templateUrl: "views/admin/roles/list.html",
-            controller: "RolesCTRL"
+            controller: "RolesCTRL",
+            authenticate: true
         })
         .state('permisos', {
             url: "/permisos",
             templateUrl: "views/admin/permissions/list.html",
-            controller: "PermissionsCTRL"
+            controller: "PermissionsCTRL",
+            authenticate: true
         })
         .state('informacion-publica', {
             url: "/informacion-publica",
             templateUrl: "views/about/detail.html",
-            controller: "AboutCTRL"
+            controller: "AboutCTRL",
+            authenticate: true
         })
         .state('editar-informacion-publica', {
             url: "/editar-informacion-publica",
             templateUrl: "views/about/edit.html",
-            controller: "AboutCTRL"
+            controller: "AboutCTRL",
+            authenticate: true
         })
         .state('record-informacion-publica', {
             url: "/record-informacion-publica",
             templateUrl: "views/about/changes.html",
-            controller: "AboutCTRL"
+            controller: "AboutCTRL",
+            authenticate: true
         })
         .state('categorias-comunidades', {
             url: "/categorias-comunidades",
             templateUrl: "views/communities/categories/list.html",
-            controller: "CategoriesCTRL"
+            controller: "CategoriesCTRL",
+            authenticate: true
         })
         .state('comunidades', {
             url: "/comunidades",
             templateUrl: "views/communities/list.html",
-            controller: "CommunitiesCTRL"
+            controller: "CommunitiesCTRL",
+            authenticate: true
         })
         .state('compania', {
             url: "/compania",
             templateUrl: "views/company/detail.html",
-            controller: "CompanyCTRL"
+            controller: "CompanyCTRL",
+            authenticate: true
         })
         .state('editar-compania', {
             url: "/editar-compania",
             templateUrl: "views/company/edit.html",
-            controller: "CompanyCTRL"
+            controller: "CompanyCTRL",
+            authenticate: true
         })
         .state('record-compania', {
             url: "/cambios-compania",
             templateUrl: "views/company/changes.html",
-            controller: "CompanyCTRL"
+            controller: "CompanyCTRL",
+            authenticate: true
         })
         .state('equipo', {
             url: "/equipo",
             templateUrl: "views/team/list.html",
-            controller: "TeamCTRL"
+            controller: "TeamCTRL",
+            authenticate: true
         })
         .state('contacto', {
             url: "/contacto",
             templateUrl: "views/contact/detail.html",
-            controller: "ContactCTRL"
+            controller: "ContactCTRL",
+            authenticate: true
         })
         .state('editar-contacto', {
             url: "/editar-contacto",
             templateUrl: "views/contact/edit.html",
-            controller: "ContactCTRL"
+            controller: "ContactCTRL",
+            authenticate: true
         })
         .state('record-contacto', {
             url: "/editarcontacto",
             templateUrl: "views/contact/edit.html",
-            controller: "ContactCTRL"
+            controller: "ContactCTRL",
+            authenticate: true
         })
         .state('tou', {
             url: "/terminos-de-uso",
             templateUrl: "views/tou/detail.html",
-            controller: "TouCTRL"
+            controller: "TouCTRL",
+            authenticate: true
         })
         .state('faq', {
             url: "/faq",
             templateUrl: "views/faq/list.html",
-            controller: "FaqCTRL"
+            controller: "FaqCTRL",
+            authenticate: true
         })
         .state('generalidades', {
             url: "/generalidades",
             templateUrl: "views/general/detail.html",
-            controller: "GeneralCTRL"
+            controller: "GeneralCTRL",
+            authenticate: true
         })
         .state('editar-generalidades', {
             url: "/editar-generalidades",
             templateUrl: "views/general/edit.html",
-            controller: "GeneralCTRL"
+            controller: "GeneralCTRL",
+            authenticate: true
         })
         .state('record-generalidades', {
             url: "/record-generalidades",
             templateUrl: "views/general/changes.html",
-            controller: "GeneralCTRL"
+            controller: "GeneralCTRL",
+            authenticate: true
         })
         .state('administracion', {
             url: "/administracion",
             templateUrl: "views/admin/menu.html",
-            controller: "MenuCTRL"
+            controller: "MenuCTRL",
+            authenticate: true
+        })
+        .state('cerrarsesion', {
+            url: "/cerrarsesion",
+            controller: "cerrarsesionCTRL",
+            authenticate: true
         });
 
         $mdThemingProvider.theme('default')
@@ -286,75 +316,105 @@
         $location.path(path);
     }
 
-    $scope.menuOptions = [
-    {
-        name: "Comunidades",
-        icon: "view_quilt",
-        ref: "comunidades",
-        style: "fill: #40c4ff"
-    },
-    {
-        name: "Categorias",
-        icon: "dashboard",
-        ref: "categorias-comunidades",
-        style: "fill: #3f51b5"
-    },
-    {
-        name: "FAQ",
-        icon: "question_answer",
-        ref: "faq",
-        style: "fill: #8bc34a"
-    },
-    {
-        name: "TOU",
-        icon: "info",
-        ref: "terminos-de-uso",
-        style: "fill: #eeff41"
-    },
-    {
-        name: "Compania",
-        icon: "business",
-        ref: "compania",
-        style: "fill: #ff5722"
-    },
-    {
-        name: "Equipo",
-        icon: "people",
-        ref: "equipo",
-        style: "fill: #ff9800"
-    },
-    {
-        name: "Acerca del Proyecto",
-        icon: "description",
-        ref: "informacion-publica",
-        style: "fill: #009688"
-    },
-    {
-        name: "Contacto",
-        icon: "my_location",
-        ref: "contacto",
-        style: "fill: #e040fb"
+    $scope.getMenu = function(){
+        $rootScope.manageSession("get", {variable: "isAdmin"}).then(function(data){
+            console.log(data);
+            if(data == "true"){
+                $scope.menuOptions = [
+                {
+                    name: "Comunidades",
+                    icon: "view_quilt",
+                    ref: "comunidades",
+                    style: "fill: #40c4ff"
+                },
+                {
+                    name: "Categorias",
+                    icon: "dashboard",
+                    ref: "categorias-comunidades",
+                    style: "fill: #3f51b5"
+                },
+                {
+                    name: "FAQ",
+                    icon: "question_answer",
+                    ref: "faq",
+                    style: "fill: #8bc34a"
+                },
+                {
+                    name: "TOU",
+                    icon: "info",
+                    ref: "terminos-de-uso",
+                    style: "fill: #eeff41"
+                },
+                {
+                    name: "Compania",
+                    icon: "business",
+                    ref: "compania",
+                    style: "fill: #ff5722"
+                },
+                {
+                    name: "Equipo",
+                    icon: "people",
+                    ref: "equipo",
+                    style: "fill: #ff9800"
+                },
+                {
+                    name: "Acerca del Proyecto",
+                    icon: "description",
+                    ref: "informacion-publica",
+                    style: "fill: #009688"
+                },
+                {
+                    name: "Contacto",
+                    icon: "my_location",
+                    ref: "contacto",
+                    style: "fill: #e040fb"
 
-    },
-    {
-        name: "Generalidades",
-        icon: "group_work",
-        ref: "generalidades",
-        style: "fill: #ffff00"
-    },
-    {
-        name: "Administracion",
-        icon: "speaker_notes",
-        ref: "administracion",
-        style: "fill: #7c4dff"
+                },
+                {
+                    name: "Generalidades",
+                    icon: "group_work",
+                    ref: "generalidades",
+                    style: "fill: #ffff00"
+                },
+                {
+                    name: "Administracion",
+                    icon: "speaker_notes",
+                    ref: "administracion",
+                    style: "fill: #7c4dff"
+                }
+                ];
+            }else{
+                $scope.menuOptions = [
+                {
+                    name: "TOU",
+                    icon: "info",
+                    ref: "terminos-de-uso",
+                    style: "fill: #eeff41"
+                },
+                {
+                    name: "Acerca del Proyecto",
+                    icon: "description",
+                    ref: "informacion-publica",
+                    style: "fill: #009688"
+                },
+                {
+                    name: "Contacto",
+                    icon: "my_location",
+                    ref: "contacto",
+                    style: "fill: #e040fb"
+                }
+                ];
+            }
+        }, function(data){});
     }
-    ];
+
+    $scope.getMenu();
 
     $scope.sessionOptions = [
     {
         name: "Cerrar Sesion",
         icon: "logout",
-        ref: "/ingresar",
+        ref: "/cerrarsesion",
         style: "fill: #727272"
     },
     {
@@ -377,7 +437,12 @@
     };
 
 }])
-.run(function($rootScope, $http, $q) {
+.controller('cerrarsesionCTRL', ['$rootScope', function ($rootScope) {
+    $rootScope.manageSession("destroy", {}).then(function(data){
+        location.reload();
+    }, function(data){});
+}])
+.run(function($rootScope, $http, $q, $state) {
 
     $rootScope.select = function(query){
         var deferred = $q.defer();
@@ -414,4 +479,27 @@
         });
         return deferred.promise;
     };
+
+    $rootScope.manageSession = function(action, tmpdata){
+        console.log("ACCEDE ROOT");
+        var deferred = $q.defer();
+        $http.post('/Session/'+action, tmpdata).
+        success(function(data, status, headers, config) {
+            deferred.resolve(data);
+        }).
+        error(function(data, status, headers, config) {
+            deferred.resolve(data, status);
+        });
+        return deferred.promise;
+    };
+
+    $rootScope.$on("$stateChangeStart",
+        function(event, toState, toParams, fromState, fromParams) {
+            $rootScope.manageSession("get", {variable: "isLogged", value: "true"}).then(function(data){
+                if (toState.authenticate && data != "true") {
+                    $state.go("login");
+                    event.preventDefault();
+                }
+            }, function(data){});
+        });
 });

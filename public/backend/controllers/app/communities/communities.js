@@ -13,13 +13,42 @@ angular.module('quaestioApp')
     $rootScope.showSideNav = true;
     $rootScope.showToolbar = true;
 
-    $scope.selected = [];
+    //SCRUD
+        $scope.add = function(){
+            $scope.insertOrUpdate('INSERT INTO faq SET',{
+                Pregunta: $scope.Question,
+                Respuesta: $scope.Answer
+            });
+            $scope.hide();
+        };
 
-    $scope.query = {
-      order: 'name',
-      limit: 5,
-      page: 1
-    };
+        $scope.insertOrUpdate = function(query, data){
+            $rootScope.insertOrUpdate(query, data).then(function(data){
+                console.log(data);
+            }, function(data){});
+        };
+
+        $scope.delete = $rootScope.delete;
+
+        $scope.select = function(){
+            $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
+                .then(function(resolve){
+                    $scope.FaqData = resolve;
+                    console.log(resolve);
+                }, function(reject){
+                    console.log(reject);
+                });
+        };
+
+        $scope.select();
+
+        $scope.query = {
+            order: 'question',
+            limit: 5,
+            page: 1
+        };
+
+        //SCRUD
 
     $scope.$watchCollection('query', function (newValue, oldValue) {
       if(newValue === oldValue) {

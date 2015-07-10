@@ -21,6 +21,8 @@ function executequery(req, res) {
                 connection.release();
                 if (!err) {
                     res.json(result);
+                }else{
+                    res.json(err);
                 }
             });
         });
@@ -31,8 +33,6 @@ function executequery(req, res) {
 
 function executepstm(query, req, res) {
     var tmpdata = req;
-    console.log("JSON FUNC");
-    console.log(tmpdata); 
     try {
         pool.getConnection(function (err, connection) {
             var consulta = connection.query(query+" ?", tmpdata, function (err, result) {
