@@ -1,38 +1,38 @@
 <md-data-table-toolbar ng-show="!selected.length">
-  <h2 class="md-title">Preguntas Frecuentes</h2>
-  <md-button ng-click="addFaq($event)">
-    <ng-md-icon icon="add_circle"></ng-md-icon>
-  </md-button>
+    <h2 class="md-title">Preguntas Frecuentes</h2>
+    <md-button ng-click="addFaq($event)">
+        <ng-md-icon icon="add_circle"></ng-md-icon>
+    </md-button>
 </md-data-table-toolbar>
 
 <md-data-table-toolbar class="alternate" ng-show="selected.length">
-  <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} seleccionado</div>
-  <md-button ng-click="editFaq($event)">
-    <ng-md-icon icon="create"></ng-md-icon>
-  </md-button>
-  <md-button ng-click="deleteFaq($event)">
-    <ng-md-icon icon="remove_circle"></ng-md-icon>
-  </md-button>
+    <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} seleccionado</div>
+    <md-button ng-click="editFaq($event)" ng-show="selected.length > 1 ? false : true">
+        <ng-md-icon icon="create"></ng-md-icon>
+    </md-button>
+    <md-button ng-click="deleteFaq($event)">
+        <ng-md-icon icon="remove_circle"></ng-md-icon>
+    </md-button>
 </md-data-table-toolbar>
 
 <md-data-table-container>
-  <table md-data-table md-row-select="selected">
-    <thead md-order="query.order" md-trim-column-names>
-    <tr>
-      <th order-by="question">Pregunta</th>
-      <th order-by="answer">Respuesta</th>
+    <table md-data-table md-row-select="selected" md-progress="deferred">
+        <thead md-order="query.order" md-trigger="onorderchange">
+        <tr>
+            <th order-by="question">Pregunta</th>
+            <th order-by="answer">Respuesta</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="q in FaqData">
-      <td>{{q.Pregunta}}</td>
-      <td>{{q.Respuesta}}</td>
-    </tr>
-    </tbody>
-  </table>
+        </tr>
+        </thead>
+        <tbody md-auto-selec>
+        <tr ng-repeat="q in FaqData | orderBy: query.order | filter: skip | limitTo: query.limit" >
+            <td>{{q.Pregunta}}</td>
+            <td>{{q.Respuesta}}</td>
+        </tr>
+        </tbody>
+    </table>
 </md-data-table-container>
 
 <md-data-table-toolbar layout-align="end">
-  <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="9"></md-data-table-pagination>
+    <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{FaqData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 </md-data-table-toolbar>
