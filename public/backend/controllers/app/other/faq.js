@@ -7,63 +7,50 @@
  * # FaqListCtrl
  * Controller of the quaestioApp
  */
-angular.module('quaestioApp')
-    .controller('FaqCTRL', ['$scope', '$rootScope', '$mdDialog','$q', '$timeout', function ($scope, $rootScope, $mdDialog, $q, $timeout) {
+ angular.module('quaestioApp')
+ .controller('FaqCTRL', ['$scope', '$rootScope', '$mdDialog','$q', '$timeout', function ($scope, $rootScope, $mdDialog, $q, $timeout) {
 
-        $rootScope.showSideNav = true;
-        $rootScope.showToolbar = true;
+    $rootScope.showSideNav = true;
+    $rootScope.showToolbar = true;
 
-        $scope.AddQuestion = function () {
-            $scope.insertOrUpdate('INSERT INTO faq SET', {
-                Pregunta: $scope.Question,
-                Respuesta: $scope.Answer
-            });
-        };
+    $scope.AddQuestion = function () {
+        $scope.insertOrUpdate('INSERT INTO faq SET', {
+            Pregunta: $scope.Question,
+            Respuesta: $scope.Answer
+        });
+    };
 
-        $scope.EditQuestion = function () {
-            $scope.insertOrUpdate('UPDATE faq SET Pregunta = :Pregunta, Respuesta = :Respuesta WHERE ID = :', {
-                ID: $scope.selected[0].ID,
-                Pregunta: $scope.Question,
-                Respuesta: $scope.Answer
-            });
-        };
+    $scope.EditQuestion = function () {
+        $scope.insertOrUpdate('UPDATE faq SET Pregunta = :Pregunta, Respuesta = :Respuesta WHERE ID = :', {
+            ID: $scope.selected[0].ID,
+            Pregunta: $scope.Question,
+            Respuesta: $scope.Answer
+        });
+    };
 
         //SCRUD
         $scope.insertOrUpdate = function (query, data) {
             $rootScope.insertOrUpdate(query, data).then(function (data) {
                 console.log(data);
-<<<<<<< HEAD
             }, function(data){});
-=======
-            }, function (data) {
-
-            });
->>>>>>> add9b4ec17ea7c6ed6c1eed8e66e06aa5e081e55
         };
 
         $scope.delete = $rootScope.delete;
 
         $scope.select = function () {
             $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
-                .then(function (resolve) {
-                    $scope.FaqData = resolve;
-<<<<<<< HEAD
-                    console.log(resolve);
-                }, function(reject){
-=======
+            .then(function (resolve) {
+                $scope.FaqData = resolve;
+                console.log(resolve);
+            }, function(reject){
+                var deferred = $q.defer();
 
-                    var deferred = $q.defer();
+                $timeout(function () {
+                    deferred.reject();
+                }, 2000);
 
-                    $timeout(function () {
-                        deferred.reject();
-                    }, 2000);
-
-                    $scope.deferred = deferred.promise;
-
-                }, function (reject) {
->>>>>>> add9b4ec17ea7c6ed6c1eed8e66e06aa5e081e55
-                    console.log(reject);
-                });
+                $scope.deferred = deferred.promise;
+            });
         };
 
 
@@ -80,54 +67,54 @@ angular.module('quaestioApp')
           console.log($scope.selected[0].ID);
           console.log($scope.selected);
           console.log($scope.selected[0].Question);
-        };
+      };
 
-        $scope.search = function (predicate) {
-            $scope.filter = predicate;
-            $scope.deferred = $scope.FaqData.get($scope.query, success).$promise;
-        };
+      $scope.search = function (predicate) {
+        $scope.filter = predicate;
+        $scope.deferred = $scope.FaqData.get($scope.query, success).$promise;
+    };
 
-        $scope.onpagechange = function (page, limit) {
+    $scope.onpagechange = function (page, limit) {
 
-            console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
-            console.log('Page: ' + page + ' Limit: ' + limit);
+        console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
+        console.log('Page: ' + page + ' Limit: ' + limit);
 
-            var deferred = $q.defer();
+        var deferred = $q.defer();
 
-            $timeout(function () {
-                deferred.resolve();
-            }, 2000);
+        $timeout(function () {
+            deferred.resolve();
+        }, 2000);
 
-            return deferred.promise;
-        };
+        return deferred.promise;
+    };
 
-        $scope.loadStuff = function () {
-            var deferred = $q.defer();
+    $scope.loadStuff = function () {
+        var deferred = $q.defer();
 
-            $timeout(function () {
-                deferred.reject();
-            }, 2000);
+        $timeout(function () {
+            deferred.reject();
+        }, 2000);
 
-            $scope.deferred = deferred.promise;
-        };
+        $scope.deferred = deferred.promise;
+    };
 
-        $scope.onorderchange = function (order) {
+    $scope.onorderchange = function (order) {
 
-            console.log('Scope Order: ' + $scope.query.order);
-            console.log('Order: ' + order);
+        console.log('Scope Order: ' + $scope.query.order);
+        console.log('Order: ' + order);
 
-            var deferred = $q.defer();
+        var deferred = $q.defer();
 
-            $timeout(function () {
-                deferred.resolve();
-            }, 2000);
+        $timeout(function () {
+            deferred.resolve();
+        }, 2000);
 
-            return deferred.promise;
-        };
+        return deferred.promise;
+    };
 
-        $scope.skip = function (item, index) {
-            return index >= ($scope.query.limit * ($scope.query.page - 1));
-        };
+    $scope.skip = function (item, index) {
+        return index >= ($scope.query.limit * ($scope.query.page - 1));
+    };
 
 
         //Modal Dialogs
@@ -168,13 +155,13 @@ angular.module('quaestioApp')
 
         $scope.deleteFaq = function (ev) {
             var confirm = $mdDialog.confirm()
-                .parent(angular.element(document.body))
-                .title('Esta seguro que desea eliminar la pregunta?')
-                .content('Esta pregunta no se podra recuperar una vez eliminada.')
-                .ariaLabel('Esta pregunta no se podra recuperar una vez eliminada.')
-                .ok('Si')
-                .cancel('No')
-                .targetEvent(ev);
+            .parent(angular.element(document.body))
+            .title('Esta seguro que desea eliminar la pregunta?')
+            .content('Esta pregunta no se podra recuperar una vez eliminada.')
+            .ariaLabel('Esta pregunta no se podra recuperar una vez eliminada.')
+            .ok('Si')
+            .cancel('No')
+            .targetEvent(ev);
             $mdDialog.show(confirm).then(function () {
                 //Eliminar
             }, function () {

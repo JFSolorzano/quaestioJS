@@ -13,6 +13,34 @@ angular.module('quaestioApp')
     $rootScope.showSideNav = true;
     $rootScope.showToolbar = true;
 
+    //SCRUD
+        $scope.insertOrUpdate = function (query, data) {
+            $rootScope.insertOrUpdate(query, data).then(function (data) {
+                console.log(data);
+            }, function(data){});
+        };
+
+        $scope.delete = $rootScope.delete;
+
+        $scope.select = function () {
+            $rootScope.select("SELECT ID, Nombre, Descripcion, FechaModificacion, FechaCreacion FROM categorias ORDER BY FechaModificacion")
+            .then(function (resolve) {
+                $scope.FaqData = resolve;
+                console.log(resolve);
+            }, function(reject){
+                var deferred = $q.defer();
+
+                $timeout(function () {
+                    deferred.reject();
+                }, 2000);
+
+                $scope.deferred = deferred.promise;
+            });
+        };
+
+
+        $scope.select();
+
     $scope.selected = [];
 
     $scope.query = {
