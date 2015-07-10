@@ -1,52 +1,53 @@
 <md-dialog ng-controller="FaqCTRL" aria-label="Nueva FAQ" id="admin-user-create">
 
-  <md-toolbar class="md-accent">
-    <h3 class="md-toolbar-tools">
-      Nueva pregunta frecuente
-    </h3>
-  </md-toolbar>
+    <md-toolbar class="md-accent">
+        <h3 class="md-toolbar-tools">
+            Nueva pregunta frecuente
+        </h3>
+    </md-toolbar>
 
-  <md-content>
-    <section class="section slim" layout="column">
-      <p>
-        Nueva pregunta frecuente
-      </p>
-    </section>
+    <md-content>
+        <section class="section slim" layout="column">
+            <p>
+                Nueva pregunta frecuente
+            </p>
+        </section>
 
-    <form name="createForm">
+        <form name="createForm">
 
-      <section class="section" layout="column">
+            <section class="section" layout="column">
 
 				<span layout="row" layout-sm="column">
 					<md-input-container flex>
-            <label>Pregunta</label>
-            <input name="name" ng-model="Question"
-                   required mongoose-error remote-unique="User">
-            <div ng-messages="createForm.name.$error">
-              <div ng-message="required">La pregunta es requerida</div>
-              <div ng-message="mongoose">Esta pregunta ya existe</div>
-              <div ng-message="remote-unique">La pregunta ya existe</div>
-            </div>
-          </md-input-container>
+                        <label>Pregunta</label>
+                        <input name="name" ng-model="Question"
+                               required mongoose-error remote-unique="User">
+
+                        <div ng-messages="createForm.name.$error">
+                            <div ng-message="required">La pregunta es requerida</div>
+                            <div ng-message="mongoose">Esta pregunta ya existe</div>
+                            <div ng-message="remote-unique">La pregunta ya existe</div>
+                        </div>
+                    </md-input-container>
 				</span>
 
 				<span layout="row" layout-sm="column">
 					<md-input-container flex class="last">
-            <label>Descripcion</label>
-            <textarea name="info" ng-model="Answer"></textarea>
-          </md-input-container>
+                        <label>Descripcion</label>
+                        <textarea name="info" ng-model="Answer"></textarea>
+                    </md-input-container>
 				</span>
 
-      </section>
+            </section>
 
-    </form>
+        </form>
 
-  </md-content>
+    </md-content>
 
-  <div class="md-actions" layout="row">
-    <span flex></span>
-    <md-button ng-click="close()">Cancelar</md-button>
-    <md-button ng-click="AddQuestion()" class="md-primary md-raised">Crear FAQ</md-button>
-  </div>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="hide()">Cancelar</md-button>
+        <md-button ng-click="AddQuestion(); hide();" class="md-primary md-raised">Crear FAQ</md-button>
+    </div>
 
 </md-dialog>

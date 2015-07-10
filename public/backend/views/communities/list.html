@@ -25,14 +25,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="c in communities">
-      <td>{{c.name}}</td>
-      <td>{{c.description}}</td>
+    <tr ng-repeat="c in CommunityData | orderBy: query.order | filter: skip | limitTo: query.limit">
+      <td>{{c.Nombre}}</td>
+      <td>{{c.Descripcion}}</td>
     </tr>
     </tbody>
   </table>
 </md-data-table-container>
 
 <md-data-table-toolbar layout-align="end">
-  <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="9"></md-data-table-pagination>
+  <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{CommunityData.length}}" md-trigger="onpagechange"></md-data-table-pagination>
 </md-data-table-toolbar>

@@ -1,4 +1,4 @@
-<md-dialog aria-label="Editar FAQ" id="admin-user-create">
+<md-dialog ng-controller="FaqCTRL" aria-label="Editar FAQ" id="admin-user-create">
 
   <md-toolbar class="md-accent">
     <h3 class="md-toolbar-tools">
@@ -21,7 +21,7 @@
 					<md-input-container flex>
             <label>Pregunta</label>
             <input name="name" ng-model="Question"
-                   required mongoose-error remote-unique="User">
+                   required mongoose-error remote-unique="User" ng-value="selected[0].Question">
             <div ng-messages="editForm.name.$error">
               <div ng-message="required">La pregunta es requerida</div>
               <div ng-message="mongoose">Esta pregunta ya existe</div>
@@ -33,7 +33,7 @@
 				<span layout="row" layout-sm="column">
 					<md-input-container flex class="last">
             <label>Descripcion</label>
-            <textarea name="info" ng-model="Answer"></textarea>
+            <textarea name="info" ng-model="Answer" ng-value="selected[0].Answer"></textarea>
           </md-input-container>
 				</span>
 

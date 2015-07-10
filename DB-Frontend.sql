@@ -140,6 +140,34 @@ CREATE TABLE DOCUMENTOS(
     FechaModificacion datetime
  );
 
+ CREATE TABLE CATEGORIAS(
+    ID int not null primary key auto_increment,
+    Nombre varchar(100),
+    Descripcion varchar(8000),
+    FechaCreacion datetime,
+    FechaModificacion datetime
+ );
+
+ CREATE TABLE COMUNIDADES(
+    ID int not null primary key auto_increment,
+    fkCategoriaID int not null,
+    Nombre varchar(100),
+    Descripcion varchar(8000),
+    FechaCreacion datetime,
+    FechaModificacion datetime,
+    FOREIGN KEY fkCategoriaID_CAT(fkCategoriaID) REFERENCES CATEGORIAS(ID) ON DELETE RESTRICT ON UPDATE CASCADE
+ );
+
+ CREATE TABLE EQUIPO(
+     ID int not null primary key auto_increment,
+     Nombre varchar(100),
+     Biografia varchar(8000),
+     FechaCreacion datetime,
+     FechaModificacion datetime
+ );
+
+
+
 INSERT INTO FAQ(Pregunta, Respuesta, FechaCreacion, FechaModificacion) VALUES ('Pregunta?', 'Respuesta',now(),now()),('Pregunta1?', 'Respuesta1',now(),now());
 
 
