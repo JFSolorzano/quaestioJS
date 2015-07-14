@@ -10,7 +10,7 @@ var pool = mysql.createPool({
     host: 'localhost',
     user: 'FRONTEND',
     password: 'P7K9',
-    database: 'QUAESTIO_FRONTEND',
+    database: 'quaestio_frontend',
     debug: false
 });
 
@@ -50,11 +50,37 @@ function executepstm(query, req, res) {
     }
 }
 
+function executepstmwhere(query, where, req, res) {
+    var tmpdata = req;
+    try {
+        pool.getConnection(function (err, connection) {
+            var consulta = connection.query(query+" ? "+where, tmpdata, function (err, result) {
+                connection.release();
+                if (!err) {
+                    res.json(result);
+                }else{
+                    res.json(err);
+                }
+            });
+            console.log(consulta.sql);
+        });   
+    } catch (err) {
+        res.json(err);
+    }
+}
+
 
 app.post('/quaestioJS/:query', function (req, res) {
-    console.log("POST OR PUT - '" + req.params.query);
+    console.log("POST - '" + req.params.query);
     var query = req.params.query;
     executepstm(query, req.body, res);
+});
+
+app.post('/quaestioJS/:query/:where', function (req, res) {
+    console.log("PUT - '" + req.params.query+" "+req.params.where);
+    var query = req.params.query;
+    var where = "WHERE " + req.params.where;
+    executepstmwhere(query, where, req.body, res);
 });
 
 app.delete('/quaestioJS/:query', function (req, res) {

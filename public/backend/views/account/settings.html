@@ -28,6 +28,18 @@
           </p>
         </div>
 
+        <div class="form-group">
+          <label>Confirme nueva Contrasena</label>
+
+          <input type="password" name="CnewPassword" class="form-control" ng-model="vm.user.CnewPassword"
+                 ng-minlength="3"
+                 required/>
+          <p class="help-block"
+             ng-show="(form.CnewPassword.$error.minlength || form.CnewPassword.$error.required) && (form.CnewPassword.$dirty || vm.submitted)">
+            La contrasena debe ser de al menos 3 caracteres
+          </p>
+        </div>
+
         <p class="help-block"> {{ vm.message }} </p>
 
         <button class="btn btn-lg btn-primary" type="submit">Guardar Cambios</button>
