@@ -16,7 +16,7 @@
  	$scope.authenticate = function(){
  		var query = "SELECT ID, fkCargoID FROM usuarios WHERE Usuario = '"+$scope.loginInfo.username+"' AND Contrasena = '"+btoa($scope.loginInfo.password)+"'";
 
- 		$rootScope.select(query).then(function(data){
+ 		$rootScope.Select(query).then(function(data){
  			if(data != ""){
  				$rootScope.manageSession("set", {variable: "isLogged", value: "true"}).then(function(sessiondata){
  					var x = data[0].fkCargoID == 2 ? true : false;

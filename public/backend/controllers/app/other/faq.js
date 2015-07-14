@@ -1,146 +1,197 @@
 'use strict';
 
 /**
+ * Controller for FAQ module
  * @ngdoc function
  * @name quaestioApp.controller:FaqListCtrl
  * @description
  * # FaqListCtrl
  * Controller of the quaestioApp
  */
- angular.module('quaestioApp')
- .controller('FaqCTRL', ['$scope', '$rootScope', '$mdDialog','$q', '$timeout', function ($scope, $rootScope, $mdDialog, $q, $timeout) {
+angular.module('quaestioApp')
+    .controller('FaqCTRL', ['$scope', '$rootScope', '$mdDialog', '$q', '$timeout', function ($scope, $rootScope, $mdDialog, $q, $timeout) {
 
-    $rootScope.showSideNav = true;
-    $rootScope.showToolbar = true;
+        $rootScope.showSideNav = true;
+        $rootScope.showToolbar = true;
 
-    $scope.AddQuestion = function () {
-        $scope.insertOrUpdate('INSERT INTO faq SET', {
-            Pregunta: $scope.Question,
-            Respuesta: $scope.Answer
-        });
-    };
+        $scope.Insert = function () {
 
-    $scope.EditQuestion = function () {
-        $scope.insertOrUpdate('UPDATE faq SET Pregunta = :Pregunta, Respuesta = :Respuesta WHERE ID = :', {
-            ID: $scope.selected[0].ID,
-            Pregunta: $scope.Question,
-            Respuesta: $scope.Answer
-        });
-    };
+            $rootScope.Insert("INSERT INTO faq SET", {
 
-        //SCRUD
-        $scope.insertOrUpdate = function (query, data) {
-            $rootScope.insertOrUpdate(query, data).then(function (data) {
-                console.log(data);
-            }, function(data){});
-        };
+                Pregunta: $scope.question,
+                Respuesta: $scope.answer,
+                FechaCreacion: "2015-07-04 15:45:28",
+                FechaModificacion: "2015-07-04 15:45:28"
 
-        $scope.delete = $rootScope.delete;
-
-        $scope.select = function () {
-            $rootScope.select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
-            .then(function (resolve) {
-                $scope.FaqData = resolve;
-                console.log(resolve);
-            }, function(reject){
-                var deferred = $q.defer();
-
-                $timeout(function () {
-                    deferred.reject();
-                }, 2000);
-
-                $scope.deferred = deferred.promise;
             });
+
+        };
+
+        $scope.Delete = $rootScope.Delete;
+
+        $scope.Select = function () {
+
+            $rootScope.Select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM faq ORDER BY FechaModificacion")
+
+                .then(function (resolve) {
+
+                    $scope.data = resolve;
+                    console.log(resolve);
+
+                }, function (reject) {
+
+                    var deferred = $q.defer();
+
+                    $timeout(function () {
+
+                        deferred.reject();
+
+                    }, 2000);
+
+                    $scope.deferred = deferred.promise;
+
+                });
+
         };
 
 
-        $scope.select();
+        $scope.Select();
 
         $scope.query = {
+
             order: 'question',
             limit: 5,
             page: 1
+
         };
 
         $scope.selected = [];
-        $scope.log = function() {
-          console.log($scope.selected[0].ID);
-          console.log($scope.selected);
-          console.log($scope.selected[0].Question);
-      };
 
-      $scope.search = function (predicate) {
-        $scope.filter = predicate;
-        $scope.deferred = $scope.FaqData.get($scope.query, success).$promise;
-    };
+        $scope.Log = function () {
 
-    $scope.onpagechange = function (page, limit) {
+            console.log($scope.selected[0].ID);
+            console.log($scope.selected);
+            console.log($scope.selected[0].Question);
 
-        console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
-        console.log('Page: ' + page + ' Limit: ' + limit);
+        };
 
-        var deferred = $q.defer();
+        $scope.Search = function (predicate) {
 
-        $timeout(function () {
-            deferred.resolve();
-        }, 2000);
+            $scope.filter = predicate;
+            $scope.deferredSearch = $scope.data.get($scope.query, success).$promise;
 
-        return deferred.promise;
-    };
+        };
 
-    $scope.loadStuff = function () {
-        var deferred = $q.defer();
+        $scope.OnPageChange = function (page, limit) {
 
-        $timeout(function () {
-            deferred.reject();
-        }, 2000);
+            console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
+            console.log('Page: ' + page + ' Limit: ' + limit);
 
-        $scope.deferred = deferred.promise;
-    };
+            var deferred = $q.defer();
 
-    $scope.onorderchange = function (order) {
+            $timeout(function () {
 
-        console.log('Scope Order: ' + $scope.query.order);
-        console.log('Order: ' + order);
+                deferred.resolve();
 
-        var deferred = $q.defer();
+            }, 2000);
 
-        $timeout(function () {
-            deferred.resolve();
-        }, 2000);
+            return deferred.promise;
+        };
 
-        return deferred.promise;
-    };
+        $scope.OnOrderChange = function (order) {
 
-    $scope.skip = function (item, index) {
-        return index >= ($scope.query.limit * ($scope.query.page - 1));
-    };
+            console.log('Scope Order: ' + $scope.query.order);
+            console.log('Order: ' + order);
+
+            var deferred = $q.defer();
+
+            $timeout(function () {
+
+                deferred.resolve();
+
+            }, 2000);
+
+            return deferred.promise;
+        };
+
+        $scope.Skip = function (item, index) {
+
+            return index >= ($scope.query.limit * ($scope.query.page - 1));
+
+        };
 
 
         //Modal Dialogs
         $scope.$watchCollection('query', function (newValue, oldValue) {
+
             if (newValue === oldValue) {
+
                 return;
+
             }
+
         });
 
-        $scope.addFaq = function (ev) {
+        $scope.AddDialog = function (ev) {
+
             $mdDialog.show({
+
                 controller: DialogController,
                 templateUrl: 'views/faq/add.html',
                 parent: angular.element(document.body),
-                targetEvent: ev,
+                targetEvent: ev
+
             });
+
         };
 
-        $scope.editFaq = function (ev) {
+        $scope.EditDialog = function (ev) {
+
             $mdDialog.show({
-                controller: DialogController,
+
+                controller: EditDialogController,
                 templateUrl: 'views/faq/edit.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
+                locals: {
+                    record: $scope.selected[0]
+                },
+                clickOutsideToClose: true,
+                controllerAs: 'EditFaqCTRL'
+
             });
+
         };
+
+        function EditDialogController($scope, $mdDialog, record) {
+
+            console.log("EditCTRL");
+            console.log(record);
+            $scope.record = record;
+
+            $scope.Update = function(){
+
+                $rootScope.Update(
+                    "UPDATE faq SET ? ",
+                    " ID = "+$scope.record.ID,
+                    {
+                        Pregunta: $scope.record.Pregunta,
+                        Respuesta: $scope.record.Respuesta
+                    }
+
+                );
+
+            };
+
+
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+
+        }
 
         function DialogController($scope, $mdDialog) {
 
@@ -153,17 +204,20 @@
 
         }
 
-        $scope.deleteFaq = function (ev) {
+        $scope.DeleteDialog = function (ev) {
+
             var confirm = $mdDialog.confirm()
-            .parent(angular.element(document.body))
-            .title('Esta seguro que desea eliminar la pregunta?')
-            .content('Esta pregunta no se podra recuperar una vez eliminada.')
-            .ariaLabel('Esta pregunta no se podra recuperar una vez eliminada.')
-            .ok('Si')
-            .cancel('No')
-            .targetEvent(ev);
+                .parent(angular.element(document.body))
+                .title('Esta seguro que desea eliminar la pregunta?')
+                .content('Esta pregunta no se podra recuperar una vez eliminada.')
+                .ariaLabel('Esta pregunta no se podra recuperar una vez eliminada.')
+                .ok('Si')
+                .cancel('No')
+                .targetEvent(ev);
+
             $mdDialog.show(confirm).then(function () {
-                //Eliminar
+                $scope.Delete("DELETE FROM faq WHERE ID = " + $scope.selected[0].ID);
+                console.log("Deleted");
             }, function () {
                 //No hacer nada
             });
