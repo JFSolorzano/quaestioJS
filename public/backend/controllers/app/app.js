@@ -336,7 +336,6 @@
 
     $scope.getMenu = function () {
         $rootScope.manageSession("get", {variable: "isAdmin"}).then(function (data) {
-            console.log(data);
             if (data == "true") {
                 $scope.menuOptions = [
                 {
@@ -457,10 +456,13 @@ $scope.showListBottomSheet = function ($event) {
 
 }])
 .controller('cerrarsesionCTRL', ['$rootScope', function ($rootScope) {
-    $rootScope.manageSession("destroy", {}).then(function (data) {
-        location.reload();
-    }, function (data) {
-    });
+    $rootScope.manageSession("destroy", {}).then(function(data){
+        if(data == "Session destroyed."){
+            location.reload();
+        }else{
+            location.reload();
+        }
+    }, function(data){});
 }])
 .run(function ($rootScope, $http, $q, $state) {
 

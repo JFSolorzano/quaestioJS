@@ -6,7 +6,7 @@ var app = express.Router();
 app.use(bodyParser.json());
 
 var pool = mysql.createPool({
-    connectionLimit: 5,
+    connectionLimit: 1000,
     host: 'localhost',
     user: 'FRONTEND',
     password: 'P7K9',
@@ -18,13 +18,13 @@ function executequery(req, res) {
     try {
         pool.getConnection(function (err, connection) {
             connection.query(req, function (err, result) {
-                connection.release();
                 if (!err) {
                     res.json(result);
                 } else {
                     res.json(err);
                 }
             });
+            connection.release();
         });
     } catch (err) {
         res.json(err);

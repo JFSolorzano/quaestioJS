@@ -13,7 +13,7 @@ angular.module('quaestioApp')
 
         $rootScope.showSideNav = true;
         $rootScope.showToolbar = true;
-
+        
         $scope.Insert = function () {
 
             $rootScope.Insert("INSERT INTO faq SET", {
@@ -31,7 +31,7 @@ angular.module('quaestioApp')
 
         $scope.Select = function () {
 
-            $rootScope.Select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM faq ORDER BY FechaModificacion")
+            $rootScope.Select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM faq ORDER BY ID DESC")
 
                 .then(function (resolve) {
 
@@ -217,7 +217,7 @@ angular.module('quaestioApp')
 
             $mdDialog.show(confirm).then(function () {
                 $scope.Delete("DELETE FROM faq WHERE ID = " + $scope.selected[0].ID);
-                console.log("Deleted");
+                location.reload();
             }, function () {
                 //No hacer nada
             });
