@@ -8,10 +8,22 @@
  * Controller of the quaestioApp
  */
  angular.module('quaestioApp')
- .controller('LoginCTRL',['$scope','$rootScope','$state',function ($scope,$rootScope,$state) {
+ .controller('LoginCTRL',['$scope','$rootScope','$state','$mdDialog',function ($scope,$rootScope,$state,$mdDialog) {
 
  	$rootScope.showSideNav = false;
  	$rootScope.showToolbar = false;
+
+ 	$scope.showAlert = function(ev) {
+ 		$mdDialog.show(
+ 			$mdDialog.alert()
+ 			.parent(angular.element(document.body))
+ 			.title('Error')
+ 			.content('Usuario o contraseña incorrectos.')
+ 			.ariaLabel('Alerta mal login')
+ 			.ok('Aceptar')
+ 			.targetEvent(ev)
+ 			);
+ 	};
 
  	$scope.onLoad = function (){
  		$rootScope.manageSession("get", {variable: "isLogged"}).then(function (data) {
@@ -25,7 +37,7 @@
 
  	$scope.onLoad();
 
- 	$scope.authenticate = function(){
+ 	$scope.authenticate = function(ev){
  		var query = "SELECT ID, fkCargoID FROM usuarios WHERE Usuario = '"+$scope.loginInfo.username+"' AND Contrasena = '"+btoa($scope.loginInfo.password)+"'";
  		$rootScope.Select(query).then(function(data){
  			if(data != ""){
@@ -40,10 +52,7 @@
  				$rootScope.isLogin = false;
  				location.reload();
  			}else{
-
- 				// ¡¡¡Poner mensaje modal en ves de este alert!!!
-
- 				alert("Usuario o contraseña incorrectos.");
+ 				$scope.showAlert(ev);
  				$scope.loginInfo = "";
  			}
  		}, function(data){});

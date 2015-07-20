@@ -14,24 +14,14 @@
               <md-input-container>
               <label>Usuario</label>
               <input name="username" required ng-model="loginInfo.username">
-              <div ng-messages="loginForm.username.$dirty && loginForm.username.$invalid">
-                <div ng-show="loginForm.username.$dirty && loginForm.username.$invalid">
-                  Este campo es requerido
-                </div>
-              </div>
               </md-input-container>
 
               <md-input-container>
               <label>Contraseña</label>
               <input name="password" required type="password" ng-model="loginInfo.password">
-              <div ng-messages="loginForm.password.$dirty && loginForm.password.$invalid">
-                <div ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
-                  Este campo es requerido
-                </div>
-              </div>
               </md-input-container>
               <br>
-              <md-button ng-click="authenticate()" class="md-raised md-primary center-block">Iniciar Sesion</md-button>
+              <md-button ng-click="authenticate($event)" class="md-raised md-primary center-block">Iniciar Sesion</md-button>
             </form>
           </div>
         </div>
