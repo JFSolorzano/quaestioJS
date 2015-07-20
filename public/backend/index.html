@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js">
 <head>
     <meta charset="utf-8">
@@ -67,9 +67,11 @@
         </md-toolbar>
         <!--Injected Content===========================================================-->
         <div flex layout="row" tabIndex="-1" role="main" class="md-whiteframe-z5" >
-            <div class="inset">
-
-            </div>
+            <div class="inset"></div>
+            <!-- <div ng-if="isLogin()">
+                <div ui-view>
+                </div>
+            </div> -->
             <md-card flex-gt-sm="90" flex-gt-md="90" flex-gt-lg="95">
                 <md-card-content ui-view></md-card-content>
             </md-card>

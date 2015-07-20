@@ -137,3 +137,14 @@ md-grid-list {
     justify-content: center;
     flex-direction: column;
 }
+
+.loginbg {
+    background-image: url("../../global/img/fondo1.png");
+    background-attachment: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.loginmodalbg {
+    background: #fff;
+}

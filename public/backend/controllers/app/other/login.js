@@ -37,6 +37,7 @@
  				}else{
  					$rootScope.manageSession("set", {variable: "isAdmin", value: "false"});
  				}
+ 				$rootScope.isLogin = false;
  				location.reload();
  			}else{
 

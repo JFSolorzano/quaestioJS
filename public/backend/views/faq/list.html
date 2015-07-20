@@ -1,7 +1,7 @@
 <md-data-table-toolbar ng-show="!selected.length">
 
     <h2 class="md-title">Preguntas Frecuentes</h2>
-    <md-button ng-click="AddDialog($event)">
+    <md-button aria-label="Add" ng-click="AddDialog($event)">
         <ng-md-icon icon="add_circle"></ng-md-icon>
     </md-button>
 
@@ -10,10 +10,10 @@
 <md-data-table-toolbar class="alternate" ng-show="selected.length">
 
     <div>Ha seleccionado {{ selected.length }} {{ selected.length > 1 ? 'items' : 'item' }}</div>
-    <md-button ng-click="EditDialog($event)" ng-show="selected.length > 1 ? false : true">
+    <md-button aria-label="Edit" ng-click="EditDialog($event)" ng-show="selected.length > 1 ? false : true">
         <ng-md-icon icon="create"></ng-md-icon>
     </md-button>
-    <md-button ng-click="DeleteDialog($event)">
+    <md-button aria-label="Delete" ng-click="DeleteDialog($event)">
         <ng-md-icon icon="remove_circle"></ng-md-icon>
     </md-button>
 

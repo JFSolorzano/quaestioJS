@@ -13,7 +13,7 @@ angular.module('quaestioApp')
 
         $rootScope.showSideNav = true;
         $rootScope.showToolbar = true;
-        
+
         $scope.Insert = function () {
 
             $rootScope.Insert("INSERT INTO faq SET", {
@@ -36,7 +36,6 @@ angular.module('quaestioApp')
                 .then(function (resolve) {
 
                     $scope.data = resolve;
-                    console.log(resolve);
 
                 }, function (reject) {
 

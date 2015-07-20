@@ -323,6 +323,10 @@
     }, function (data) {
     });
 
+    $scope.isLogin = function () {
+        return $rootScope.isLogin;
+    }
+
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -466,6 +470,8 @@ $scope.showListBottomSheet = function ($event) {
 }])
 .run(function ($rootScope, $http, $q, $state) {
 
+    $rootScope.isLogin = true;
+
     $rootScope.Select = function (query) {
         var deferred = $q.defer();
         $http.get('/quaestioJS/' + query).
@@ -532,6 +538,7 @@ $scope.showListBottomSheet = function ($event) {
                 if (toState.authenticate && data != "true") {
                     $state.go("login");
                     event.preventDefault();
+                    $rootScope.isLogin = true;
                 }
             }, function (data) {
             });
