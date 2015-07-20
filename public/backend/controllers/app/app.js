@@ -1,320 +1,202 @@
 'use strict';
 
 /**
- * @ngdoc overview
- * @name quaestioApp
- * @description
- * # quaestioApp
- *
- * Main module of the application.
- */
- angular
- .module('quaestioApp', [
+* @ngdoc overview
+* @name quaestioApp
+* @description
+* # quaestioApp
+*
+* Main module of the application.
+*/
+angular
+.module('quaestioApp', [
     'ngAnimate',
     'ngAria',
     'ngCookies',
     'ngMessages',
     'ngMaterial',
     'ngResource',
-        //'ngRoute', //Replazed with ui-route
-        'ui.router',
-        'ngSanitize',
-        'ngTouch',
-        'ui.bootstrap',
-        'ngMdIcons',
-        'md.data.table'
-        ])
-    //.config(function ($routeProvider, $mdThemingProvider) { //Using ngRoute
-    //  $routeProvider
-    //    .when('/', {
-    //      templateUrl: 'views/main.html',
-    //      controller: 'MainCtrl'
-    //    })
-    //    .when('/usuarios', {
-    //      templateUrl: 'views/admin/users/list.html',
-    //      controller: 'UsersCTRL'
-    //    })
-    //    .when('/roles', {
-    //      templateUrl: 'views/admin/roles/list.html',
-    //      controller: 'RolesCTRL'
-    //    })
-    //    .when('/permisos', {
-    //      templateUrl: 'views/admin/permissions/list.html',
-    //      controller: 'PermissionsCTRL'
-    //    })
-    //    .when('/informacion-publica', {
-    //      templateUrl: 'views/about/detail.html',
-    //      controller: 'AboutCTRL'
-    //    })
-    //    .when('/editar-informacion-publica', {
-    //      templateUrl: 'views/about/edit.html',
-    //      controller: 'AboutCTRL'
-    //    })
-    //    .when('/record-informacion-empresarial', {
-    //      templateUrl: 'views/about/changes.html',
-    //      controller: 'AboutCTRL'
-    //    })
-    //    .when('/ingresar', {
-    //      templateUrl: 'views/account/login.html',
-    //      controller: 'LoginCTRL'
-    //    })
-    //    .when('/configurar-cuenta', {
-    //      templateUrl: 'views/account/settings.html',
-    //      controller: 'AccountCTRL'
-    //    })
-    //    .when('/categorias-comunidades', {
-    //      templateUrl: 'views/communities/categories/list.html',
-    //      controller: 'CategoriesCTRL'
-    //    })
-    //    .when('/comunidades', {
-    //      templateUrl: 'views/communities/list.html',
-    //      controller: 'CommunitiesCTRL'
-    //    })
-    //    .when('/compania', {
-    //      templateUrl: 'views/company/detail.html',
-    //      controller: 'CompanyCTRL'
-    //    })
-    //    .when('/editar-compania', {
-    //      templateUrl: 'views/company/edit.html',
-    //      controller: 'CompanyCTRL'
-    //    })
-    //    .when('/cambios-compania', {
-    //      templateUrl: 'views/company/changes.html',
-    //      controller: 'CompanyCTRL'
-    //    })
-    //    .when('/contacto', {
-    //      templateUrl: 'views/contact/detail.html',
-    //      controller: 'ContactCTRL'
-    //    })
-    //    .when('/editar-contacto', {
-    //      templateUrl: 'views/contact/edit.html',
-    //      controller: 'ContactCTRL'
-    //    })
-    //    .when('/cambios-contacto', {
-    //      templateUrl: 'views/contact/changes.html',
-    //      controller: 'ContactCTRL'
-    //    })
-    //    .when('/faq', {
-    //      templateUrl: 'views/faq/list.html',
-    //      controller: 'FaqCTRL'
-    //    })
-    //    .when('/generalidades', {
-    //      templateUrl: 'views/general/detail.html',
-    //      controller: 'GeneralCTRL'
-    //    })
-    //    .when('/edit-generalidad', {
-    //      templateUrl: 'views/general/edit.html',
-    //      controller: 'GeneralCTRL'
-    //    })
-    //    .when('/cambios-generalidad', {
-    //      templateUrl: 'views/general/changes.html',
-    //      controller: 'GeneralCTRL'
-    //    })
-    //    .when('/equipo', {
-    //      templateUrl: 'views/team/list.html',
-    //      controller: 'TeamCTRL'
-    //    })
-    //    .when('/terminos-de-uso', {
-    //      templateUrl: 'views/tou/detail.html',
-    //      controller: 'TouCTRL'
-    //    })
-    //    .when('/cambiar-tou', {
-    //      templateUrl: 'views/tou/edit.html',
-    //      controller: 'TouCTRL'
-    //    })
-    //    .when('/cambios-tou', {
-    //      templateUrl: 'views/tou/changes.html',
-    //      controller: 'TouCTRL'
-    //    })
-    //    .when('/administracion', {
-    //      templateUrl: 'views/admin/menu.html',
-    //      controller: 'MenuCTRL'
-    //    })
-    //    .otherwise({
-    //      redirectTo: '/'
-    //    });
+    'ui.router',
+    'ngSanitize',
+    'ngTouch',
+    'ui.bootstrap',
+    'ngMdIcons',
+    'md.data.table'
+    ])
+.config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {//Using ui-route
     //
-    //  $mdThemingProvider.theme('default')
-    //    .primaryPalette('blue')
-    //    .accentPalette('green');
+    // For any unmatched url, redirect to /
+    $urlRouterProvider.otherwise("/");
     //
-    //})
-    .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider) {//Using ui-route
-        //
-        // For any unmatched url, redirect to /
-        $urlRouterProvider.otherwise("/");
-        //
-        // Set up the states
-
-        $stateProvider
-        .state('login', {
-            url: "/login",
-            templateUrl: "views/account/login.html",
-            controller: "LoginCTRL",
-            authenticate: false
-        })
-        .state('index', {
-            url: "/",
-            templateUrl: "views/main.html",
-            controller: "MainCTRL",
-            authenticate: true
-        })
-        .state('usuarios', {
-            url: "/usuarios",
-            templateUrl: "views/admin/users/list.html",
-            controller: "UsersCTRL",
-            authenticate: true
-        })
-        .state('configuracion', {
-            url: "/configuracion",
-            templateUrl: "views/account/settings.html",
-            controller: "AccountCTRL",
-            authenticate: true
-        })
-        .state('roles', {
-            url: "/roles",
-            templateUrl: "views/admin/roles/list.html",
-            controller: "RolesCTRL",
-            authenticate: true
-        })
-        .state('permisos', {
-            url: "/permisos",
-            templateUrl: "views/admin/permissions/list.html",
-            controller: "PermissionsCTRL",
-            authenticate: true
-        })
-        .state('informacion-publica', {
-            url: "/informacion-publica",
-            templateUrl: "views/about/detail.html",
-            controller: "AboutCTRL",
-            authenticate: true
-        })
-        .state('editar-informacion-publica', {
-            url: "/editar-informacion-publica",
-            templateUrl: "views/about/edit.html",
-            controller: "AboutCTRL",
-            authenticate: true
-        })
-        .state('record-informacion-publica', {
-            url: "/record-informacion-publica",
-            templateUrl: "views/about/changes.html",
-            controller: "AboutCTRL",
-            authenticate: true
-        })
-        .state('categorias-comunidades', {
-            url: "/categorias-comunidades",
-            templateUrl: "views/communities/categories/list.html",
-            controller: "CategoriesCTRL",
-            authenticate: true
-        })
-        .state('comunidades', {
-            url: "/comunidades",
-            templateUrl: "views/communities/list.html",
-            controller: "CommunitiesCTRL",
-            authenticate: true
-        })
-        .state('compania', {
-            url: "/compania",
-            templateUrl: "views/company/detail.html",
-            controller: "CompanyCTRL",
-            authenticate: true
-        })
-        .state('editar-compania', {
-            url: "/editar-compania",
-            templateUrl: "views/company/edit.html",
-            controller: "CompanyCTRL",
-            authenticate: true
-        })
-        .state('record-compania', {
-            url: "/cambios-compania",
-            templateUrl: "views/company/changes.html",
-            controller: "CompanyCTRL",
-            authenticate: true
-        })
-        .state('equipo', {
-            url: "/equipo",
-            templateUrl: "views/team/list.html",
-            controller: "TeamCTRL",
-            authenticate: true
-        })
-        .state('contacto', {
-            url: "/contacto",
-            templateUrl: "views/contact/detail.html",
-            controller: "ContactCTRL",
-            authenticate: true
-        })
-        .state('editar-contacto', {
-            url: "/editar-contacto",
-            templateUrl: "views/contact/edit.html",
-            controller: "ContactCTRL",
-            authenticate: true
-        })
-        .state('record-contacto', {
-            url: "/editarcontacto",
-            templateUrl: "views/contact/edit.html",
-            controller: "ContactCTRL",
-            authenticate: true
-        })
-        .state('tou', {
-            url: "/terminos-de-uso",
-            templateUrl: "views/tou/detail.html",
-            controller: "TouCTRL",
-            authenticate: true
-        })
-        .state('faq', {
-            url: "/faq",
-            templateUrl: "views/faq/list.html",
-            controller: "FaqCTRL",
-            authenticate: true
-        })
-        .state('generalidades', {
-            url: "/generalidades",
-            templateUrl: "views/general/detail.html",
-            controller: "GeneralCTRL",
-            authenticate: true
-        })
-        .state('editar-generalidades', {
-            url: "/editar-generalidades",
-            templateUrl: "views/general/edit.html",
-            controller: "GeneralCTRL",
-            authenticate: true
-        })
-        .state('record-generalidades', {
-            url: "/record-generalidades",
-            templateUrl: "views/general/changes.html",
-            controller: "GeneralCTRL",
-            authenticate: true
-        })
-        .state('administracion', {
-            url: "/administracion",
-            templateUrl: "views/admin/menu.html",
-            controller: "MenuCTRL",
-            authenticate: true
-        })
-        .state('cerrarsesion', {
-            url: "/cerrarsesion",
-            controller: "cerrarsesionCTRL",
-            authenticate: true
-        });
-
-        $mdThemingProvider.theme('default')
-        .primaryPalette('deep-orange')
-        .accentPalette('blue-grey');
-
+    // Set up the states
+    $stateProvider
+    .state('login', {
+        url: "/login",
+        templateUrl: "views/account/login.html",
+        controller: "LoginCTRL",
+        authenticate: false
     })
+    .state('index', {
+        url: "/",
+        templateUrl: "views/main.html",
+        controller: "MainCTRL",
+        authenticate: true
+    })
+    .state('usuarios', {
+        url: "/usuarios",
+        templateUrl: "views/admin/users/list.html",
+        controller: "UsersCTRL",
+        authenticate: true
+    })
+    .state('configuracion', {
+        url: "/configuracion",
+        templateUrl: "views/account/settings.html",
+        controller: "AccountCTRL",
+        authenticate: true
+    })
+    .state('roles', {
+        url: "/roles",
+        templateUrl: "views/admin/roles/list.html",
+        controller: "RolesCTRL",
+        authenticate: true
+    })
+    .state('permisos', {
+        url: "/permisos",
+        templateUrl: "views/admin/permissions/list.html",
+        controller: "PermissionsCTRL",
+        authenticate: true
+    })
+    .state('informacion-publica', {
+        url: "/informacion-publica",
+        templateUrl: "views/about/detail.html",
+        controller: "AboutCTRL",
+        authenticate: true
+    })
+    .state('editar-informacion-publica', {
+        url: "/editar-informacion-publica",
+        templateUrl: "views/about/edit.html",
+        controller: "AboutCTRL",
+        authenticate: true
+    })
+    .state('record-informacion-publica', {
+        url: "/record-informacion-publica",
+        templateUrl: "views/about/changes.html",
+        controller: "AboutCTRL",
+        authenticate: true
+    })
+    .state('categorias-comunidades', {
+        url: "/categorias-comunidades",
+        templateUrl: "views/communities/categories/list.html",
+        controller: "CategoriesCTRL",
+        authenticate: true
+    })
+    .state('comunidades', {
+        url: "/comunidades",
+        templateUrl: "views/communities/list.html",
+        controller: "CommunitiesCTRL",
+        authenticate: true
+    })
+    .state('compania', {
+        url: "/compania",
+        templateUrl: "views/company/detail.html",
+        controller: "CompanyCTRL",
+        authenticate: true
+    })
+    .state('editar-compania', {
+        url: "/editar-compania",
+        templateUrl: "views/company/edit.html",
+        controller: "CompanyCTRL",
+        authenticate: true
+    })
+    .state('record-compania', {
+        url: "/cambios-compania",
+        templateUrl: "views/company/changes.html",
+        controller: "CompanyCTRL",
+        authenticate: true
+    })
+    .state('equipo', {
+        url: "/equipo",
+        templateUrl: "views/team/list.html",
+        controller: "TeamCTRL",
+        authenticate: true
+    })
+    .state('contacto', {
+        url: "/contacto",
+        templateUrl: "views/contact/detail.html",
+        controller: "ContactCTRL",
+        authenticate: true
+    })
+    .state('editar-contacto', {
+        url: "/editar-contacto",
+        templateUrl: "views/contact/edit.html",
+        controller: "ContactCTRL",
+        authenticate: true
+    })
+    .state('record-contacto', {
+        url: "/editarcontacto",
+        templateUrl: "views/contact/edit.html",
+        controller: "ContactCTRL",
+        authenticate: true
+    })
+    .state('tou', {
+        url: "/terminos-de-uso",
+        templateUrl: "views/tou/detail.html",
+        controller: "TouCTRL",
+        authenticate: true
+    })
+    .state('faq', {
+        url: "/faq",
+        templateUrl: "views/faq/list.html",
+        controller: "FaqCTRL",
+        authenticate: true
+    })
+    .state('generalidades', {
+        url: "/generalidades",
+        templateUrl: "views/general/detail.html",
+        controller: "GeneralCTRL",
+        authenticate: true
+    })
+    .state('editar-generalidades', {
+        url: "/editar-generalidades",
+        templateUrl: "views/general/edit.html",
+        controller: "GeneralCTRL",
+        authenticate: true
+    })
+    .state('record-generalidades', {
+        url: "/record-generalidades",
+        templateUrl: "views/general/changes.html",
+        controller: "GeneralCTRL",
+        authenticate: true
+    })
+    .state('administracion', {
+        url: "/administracion",
+        templateUrl: "views/admin/menu.html",
+        controller: "MenuCTRL",
+        authenticate: true
+    })
+    .state('cerrarsesion', {
+        url: "/cerrarsesion",
+        controller: "cerrarsesionCTRL",
+        authenticate: true
+    });
+
+    $mdThemingProvider.theme('default')
+    .primaryPalette('deep-orange')
+    .accentPalette('blue-grey');
+
+})
 .controller('AppCtrl', ['$scope', '$mdSidenav', '$rootScope', '$location', function ($scope, $mdSidenav, $rootScope, $location) {
 
     $scope.user = "";
-    $rootScope.showSideNav = false;
 
     $rootScope.manageSession("get", {variable: "User"}).then(function (data) {
         if (data != "") {
             $scope.user = data;
             $rootScope.manageSession("get", {variable: "isAdmin"}).then(function (data) {
-                if (data == "true") {
-                    $rootScope.showSideNav = false;
-                } else {
+                if (data != "true") {
                     $rootScope.showSideNav = true;
+                }else{
+
                 }
             }, function (data) {
             });
@@ -327,7 +209,12 @@
         return $rootScope.isLogin;
     }
 
+    $scope.isVisible = function (){
+        return $rootScope.showSideNav;
+    }
+
     $scope.toggleSidenav = function (menuId) {
+        console.log(menuId);
         $mdSidenav(menuId).toggle();
     };
 
@@ -434,17 +321,17 @@ $scope.getMenu();
 
 $scope.sessionOptions = [
 {
-    name: "Cerrar Sesion",
-    icon: "logout",
-    ref: "/cerrarsesion",
-    style: "fill: #727272"
-},
-{
     name: "Cuenta",
     icon: "settings",
     ref: "/configuracion",
     style: "fill: #727272"
 },
+{
+    name: "Cerrar Sesion",
+    icon: "logout",
+    ref: "/cerrarsesion",
+    style: "fill: #727272"
+}
 ];
 
 $scope.showListBottomSheet = function ($event) {
@@ -472,9 +359,11 @@ $scope.showListBottomSheet = function ($event) {
 
     $rootScope.isLogin = true;
 
+    $rootScope.showSideNav = true;
+
     $rootScope.Select = function (query) {
         var deferred = $q.defer();
-        $http.get('/quaestioJS/' + query).
+        $http.get('/Select/' + query).
         success(function (data, status, headers, config) {
             deferred.resolve(data);
         }).
@@ -486,7 +375,7 @@ $scope.showListBottomSheet = function ($event) {
 
     $rootScope.Insert = function (query, tmpdata) {
         var deferred = $q.defer();
-        $http.post('/quaestioJS/' + query, tmpdata).
+        $http.post('/Insert/' + query, tmpdata).
         success(function (data, status, headers, config) {
             deferred.resolve(data);
         }).
@@ -498,7 +387,7 @@ $scope.showListBottomSheet = function ($event) {
 
     $rootScope.Update = function (query, where, tmpdata) {
         var deferred = $q.defer();
-        $http.post('/quaestioJS/' + query +'/' + where, tmpdata).
+        $http.put('/Update/' + query + '/' + where, tmpdata).
         success(function (data, status, headers, config) {
             deferred.resolve(data);
         }).
@@ -510,7 +399,7 @@ $scope.showListBottomSheet = function ($event) {
 
     $rootScope.Delete = function (query, tmpdata) {
         var deferred = $q.defer();
-        $http.delete('/quaestioJS/' + query, tmpdata).
+        $http.delete('/Delete/' + query, tmpdata).
         success(function (data, status, headers, config) {
             deferred.resolve(data);
         }).

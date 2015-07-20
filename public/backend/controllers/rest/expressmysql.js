@@ -69,26 +69,26 @@ function executepstmwhere(query, where, req, res) {
     }
 }
 
-app.post('/quaestioJS/:query', function (req, res) {
+app.post('/Insert/:query', function (req, res) {
     console.log("POST - '" + req.params.query);
     var query = req.params.query;
     executepstm(query, req.body, res);
 });
 
-app.post('/quaestioJS/:query/:where', function (req, res) {
+app.put('/Update/:query/:where', function (req, res) {
     console.log("PUT - '" + req.params.query + " " + req.params.where);
     var query = req.params.query;
     var where = "WHERE " + req.params.where;
     executepstmwhere(query, where, req.body, res);
 });
 
-app.delete('/quaestioJS/:query', function (req, res) {
+app.delete('/Delete/:query', function (req, res) {
     console.log("DELETE - '" + req.params.query + "'");
     var query = req.params.query;
     executequery(query, res);
 });
 
-app.get('/quaestioJS/:query', function (req, res) {
+app.get('/Select/:query', function (req, res) {
     console.log("GET - '" + req.params.query + "'");
     var query = req.params.query;
     executequery(query, res);

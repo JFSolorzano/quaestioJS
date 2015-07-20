@@ -8,37 +8,25 @@
  * Controller of the quaestioApp
  */
  angular.module('quaestioApp')
- .controller('LoginCTRL',['$scope','$rootScope','$state','$mdDialog','$mdToast','$animate',function ($scope,$rootScope,$state,$mdDialog,$mdToast,$animate) {
+ .controller('LoginCTRL',['$scope','$rootScope','$state','$mdToast','$animate',function ($scope,$rootScope,$state,$mdToast,$animate) {
 
  	$rootScope.showSideNav = false;
  	$rootScope.showToolbar = false;
-
+ 	
  	$scope.showSimpleToast = function() {
     $mdToast.show($mdToast.simple()
         .content('Usuario o contraseña incorrectos.')
-        .position('top')
-        .hideDelay(3000)
+        .position('top right')
+        .hideDelay(1500)
     	);
     };
-  
- 	$scope.showAlert = function(ev) {
- 		$mdDialog.show(
- 			$mdDialog.alert()
- 			.parent(angular.element(document.body))
- 			.title('Error')
- 			.content('Usuario o contraseña incorrectos.')
- 			.ariaLabel('Alerta mal login')
- 			.ok('Aceptar')
- 			.targetEvent(ev)
- 			);
- 	};
 
  	$scope.onLoad = function (){
  		$rootScope.manageSession("get", {variable: "isLogged"}).then(function (data) {
  			if(data == "" || data == undefined){
  				console.log("Not logged.");
  			}else{
- 				location.assign("#/");
+ 				location.assign("/backend/");
  			}
  		}, function (data) {});
  	}

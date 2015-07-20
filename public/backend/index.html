@@ -24,7 +24,7 @@
 <div layout="row" flex class="content-wrapper">
 
     <!--Navigation bar==================================================================================================-->
-    <md-sidenav ng-show="showSideNav" layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+    <md-sidenav ng-if="isVisible()" layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
                 md-is-locked-open="$mdMedia('gt-sm')">
 
         <!--Logged User Info================================================-->
