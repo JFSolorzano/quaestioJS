@@ -8,11 +8,19 @@
  * Controller of the quaestioApp
  */
  angular.module('quaestioApp')
- .controller('LoginCTRL',['$scope','$rootScope','$state','$mdDialog',function ($scope,$rootScope,$state,$mdDialog) {
+ .controller('LoginCTRL',['$scope','$rootScope','$state','$mdDialog','$mdToast','$animate',function ($scope,$rootScope,$state,$mdDialog,$mdToast,$animate) {
 
  	$rootScope.showSideNav = false;
  	$rootScope.showToolbar = false;
 
+ 	$scope.showSimpleToast = function() {
+    $mdToast.show($mdToast.simple()
+        .content('Usuario o contraseña incorrectos.')
+        .position('top')
+        .hideDelay(3000)
+    	);
+    };
+  
  	$scope.showAlert = function(ev) {
  		$mdDialog.show(
  			$mdDialog.alert()
@@ -52,7 +60,7 @@
  				$rootScope.isLogin = false;
  				location.reload();
  			}else{
- 				$scope.showAlert(ev);
+ 				$scope.showSimpleToast();
  				$scope.loginInfo = "";
  			}
  		}, function(data){});
