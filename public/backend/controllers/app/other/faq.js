@@ -26,7 +26,7 @@
     $scope.Delete = $rootScope.Delete;
 
     $scope.Select = function () {
-        $rootScope.Select("SELECT ID, Pregunta, Respuesta, FechaModificacion, FechaCreacion FROM faq ORDER BY ID DESC").then(function (resolve){
+        $rootScope.Select("SELECT * FROM faq ORDER BY ID DESC").then(function (resolve){
             $scope.data = resolve;
         }, function (reject){
             var deferred = $q.defer();

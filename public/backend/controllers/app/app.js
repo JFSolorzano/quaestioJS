@@ -247,49 +247,49 @@ angular
                     ref: "faq",
                     style: "fill: #8bc34a"
                 },
-                {
-                    name: "TOU",
-                    icon: "info",
-                    ref: "terminos-de-uso",
-                    style: "fill: #eeff41"
-                },
-                {
-                    name: "Compania",
-                    icon: "business",
-                    ref: "compania",
-                    style: "fill: #ff5722"
-                },
+                // {
+                //     name: "TOU",
+                //     icon: "info",
+                //     ref: "terminos-de-uso",
+                //     style: "fill: #eeff41"
+                // },
+                // {
+                //     name: "Compania",
+                //     icon: "business",
+                //     ref: "compania",
+                //     style: "fill: #ff5722"
+                // },
                 {
                     name: "Equipo",
                     icon: "people",
                     ref: "equipo",
                     style: "fill: #ff9800"
-                },
-                {
-                    name: "Acerca del Proyecto",
-                    icon: "description",
-                    ref: "informacion-publica",
-                    style: "fill: #009688"
-                },
-                {
-                    name: "Contacto",
-                    icon: "my_location",
-                    ref: "contacto",
-                    style: "fill: #e040fb"
-
-                },
-                {
-                    name: "Generalidades",
-                    icon: "group_work",
-                    ref: "generalidades",
-                    style: "fill: #ffff00"
-                },
-                {
-                    name: "Administracion",
-                    icon: "speaker_notes",
-                    ref: "administracion",
-                    style: "fill: #7c4dff"
                 }
+                // {
+                //     name: "Acerca del Proyecto",
+                //     icon: "description",
+                //     ref: "informacion-publica",
+                //     style: "fill: #009688"
+                // },
+                // {
+                //     name: "Contacto",
+                //     icon: "my_location",
+                //     ref: "contacto",
+                //     style: "fill: #e040fb"
+
+                // },
+                // {
+                //     name: "Generalidades",
+                //     icon: "group_work",
+                //     ref: "generalidades",
+                //     style: "fill: #ffff00"
+                // },
+                // {
+                //     name: "Administracion",
+                //     icon: "speaker_notes",
+                //     ref: "administracion",
+                //     style: "fill: #7c4dff"
+                // }
                 ];
             } else {
                 $scope.menuOptions = [

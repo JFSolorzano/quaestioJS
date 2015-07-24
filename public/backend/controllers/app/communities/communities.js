@@ -8,124 +8,214 @@
  * Controller of the quaestioApp
  */
 angular.module('quaestioApp')
-  .controller('CommunitiesCTRL', ['$scope','$rootScope','$mdDialog',function ($scope,$rootScope,$mdDialog) {
+  .controller('CommunitiesCTRL', ['$scope', '$rootScope', '$mdDialog', '$q', '$timeout', function ($scope, $rootScope, $mdDialog, $q, $timeout) {
 
     $rootScope.showSideNav = true;
     $rootScope.showToolbar = true;
 
-    //SCRUD
-        $scope.insertOrUpdate = function (query, data) {
-            $rootScope.insertOrUpdate(query, data).then(function (data) {
-                console.log(data);
-            }, function(data){});
-        };
+    $scope.Insert = function () {
+        $rootScope.Insert("INSERT INTO comunidades SET", {
+            Pregunta: $scope.question,
+            Respuesta: $scope.answer,
+            FechaCreacion: $scope.getDate()
+        });
+        location.reload();
+    };
 
-        $scope.delete = $rootScope.delete;
+    $scope.Delete = $rootScope.Delete;
 
-        $scope.select = function () {
-            $rootScope.select("SELECT co.ID, co.Nombre, co.Descripcion, ca.Nombre, co.FechaModificacion, co.FechaCreacion FROM comunidades AS co, categorias AS ca ORDER BY co.FechaModificacion")
-            .then(function (resolve) {
-                $scope.FaqData = resolve;
-                console.log(resolve);
-            }, function(reject){
-                var deferred = $q.defer();
+    $scope.Select = function () {
+        $rootScope.Select("SELECT * FROM comunidades ORDER BY ID DESC").then(function (resolve){
+            $scope.CommunityData = resolve;
+        }, function (reject){
+            var deferred = $q.defer();
+            $timeout(function (){
+                deferred.reject();
+            }, 2000);
+            $scope.deferred = deferred.promise;
+        });
+    };
 
-                $timeout(function () {
-                    deferred.reject();
-                }, 2000);
 
-                $scope.deferred = deferred.promise;
+    $scope.Select();
+
+    $scope.query = {
+        order: 'question',
+        limit: 5,
+        page: 1
+    };
+
+    $scope.selected = [];
+
+    $scope.getDate = function (){
+        var date;
+        date = new Date();
+        date = date.getFullYear() + '-' +
+        ('00' + (date.getMonth()+1)).slice(-2) + '-' +
+        ('00' + date.getDate()).slice(-2) + ' ' + 
+        ('00' + date.getHours()).slice(-2) + ':' + 
+        ('00' + date.getMinutes()).slice(-2) + ':' + 
+        ('00' + date.getSeconds()).slice(-2);
+        return date;
+    }
+
+    $scope.Log = function () {
+        console.log($scope.selected[0].ID);
+        console.log($scope.selected);
+        console.log($scope.selected[0].Question);
+    };
+
+    $scope.Search = function (predicate) {
+        $scope.filter = predicate;
+        $scope.deferredSearch = $scope.data.get($scope.query, success).$promise;
+    };
+
+    $scope.OnPageChange = function (page, limit) {
+        console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
+        console.log('Page: ' + page + ' Limit: ' + limit);
+        var deferred = $q.defer();
+        $timeout(function () {
+            deferred.resolve();
+        }, 2000);
+        return deferred.promise;
+    };
+
+    $scope.OnOrderChange = function (order) {
+        console.log('Scope Order: ' + $scope.query.order);
+        console.log('Order: ' + order);
+        var deferred = $q.defer();
+        $timeout(function () {
+            deferred.resolve();
+        }, 2000);
+        return deferred.promise;
+    };
+
+    $scope.Skip = function (item, index) {
+        return index >= ($scope.query.limit * ($scope.query.page - 1));
+    };
+
+
+        //Modal Dialogs
+        $scope.$watchCollection('query', function (newValue, oldValue) {
+            if (newValue === oldValue) {
+                return;
+            }
+        });
+
+        $scope.AddDialog = function (ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'views/communities/add.html',
+                parent: angular.element(document.body),
+                targetEvent: ev
             });
         };
 
-
-        $scope.select();
-
-        $scope.query = {
-            order: 'question',
-            limit: 5,
-            page: 1
+        $scope.EditDialog = function (ev) {
+            $mdDialog.show({
+                controller: EditDialogController,
+                templateUrl: 'views/faq/edit.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                locals: {
+                    record: $scope.selected[0]
+                },
+                clickOutsideToClose: true,
+                controllerAs: 'EditFaqCTRL'
+            });
         };
 
-        //SCRUD
+        function EditDialogController($scope, $mdDialog, record) {
+            $scope.record = record;
+            $scope.Update = function(){
+                $rootScope.Update(
+                    "UPDATE faq SET",
+                    "ID = "+$scope.record.ID,
+                    {
+                        Pregunta: $scope.record.Pregunta,
+                        Respuesta: $scope.record.Respuesta,
+                        FechaModificacion: $scope.getDate()
+                    }
+                    );
+                location.reload();
+            };
 
-    $scope.$watchCollection('query', function (newValue, oldValue) {
-      if(newValue === oldValue) {
-        return;
-      }
+            $scope.getDate = function (){
+                var date;
+                date = new Date();
+                date = date.getFullYear() + '-' +
+                ('00' + (date.getMonth()+1)).slice(-2) + '-' +
+                ('00' + date.getDate()).slice(-2) + ' ' + 
+                ('00' + date.getHours()).slice(-2) + ':' + 
+                ('00' + date.getMinutes()).slice(-2) + ':' + 
+                ('00' + date.getSeconds()).slice(-2);
+                return date;
+            }
 
-      $scope.communities = [
-        {
-          name: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          description: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },{
-          name: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          description: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },{
-          name: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          description: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },{
-          name: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          description: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },
-      ];
-    });
+            $scope.hide = function (){
+                $mdDialog.hide();
+            };
 
-    $scope.addCommunity = function(ev) {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'views/communities/add.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-      })
-        .then(function(data) {
-          //Agregar
-        }, function() {
-          //Cancelar
-        });
-    };
+            $scope.cancel = function (){
+                $mdDialog.cancel();
+            };
+        }
 
-    $scope.editCommunity = function(ev) {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'views/communities/edit.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-      })
-        .then(function(data) {
-          //Editar
-        }, function() {
-          //Cancelar
-        });
-    };
+        function DialogController($scope, $mdDialog) {
 
-    function DialogController($scope, $mdDialog) {
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-      $scope.add = function(data) {
-        $mdDialog.hide(data);
-      };
-    }
+            $scope.hide = function (){
+                $mdDialog.hide();
+            };
 
-    $scope.deleteCommunity = function(ev) {
-      var confirm = $mdDialog.confirm()
-        .parent(angular.element(document.body))
-        .title('Esta seguro que desea eliminar la comunidad?')
-        .content('Esta comunidad no se podra recuperar una vez eliminada.')
-        .ariaLabel('Esta comunidad no se podra recuperar una vez eliminada.')
-        .ok('Si')
-        .cancel('No')
-        .targetEvent(ev);
-      $mdDialog.show(confirm).then(function() {
-        //Eliminar
-      }, function() {
-        //No hacer nada
-      });
-    };
+            $scope.cancel = function (){
+                $mdDialog.cancel();
+            };
 
-  }]);
+        }
 
+        $scope.DeleteDialog = function (ev) {
+
+            var x = 0;
+            for (var i = 0; i < $scope.selected.length; i++) {
+                x += 1;
+            };
+
+            if(x > 1){
+                var confirm = $mdDialog.confirm()
+                .parent(angular.element(document.body))
+                .title('¿Esta seguro que desea eliminar las preguntas seleccionadas?')
+                .content('Las preguntas no se podran recuperar una vez eliminadas.')
+                .ariaLabel('Las preguntas no se podran recuperar una vez eliminadas.')
+                .ok('Si')
+                .cancel('No')
+                .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function () {
+                    for (var i = 0; i < $scope.selected.length; i++) {
+                        $scope.Delete("DELETE FROM faq WHERE ID = " + $scope.selected[i].ID);
+                    };
+                    location.reload();
+                }, function () {
+                //No hacer nada
+            });
+
+            }else{
+                var confirm = $mdDialog.confirm()
+                .parent(angular.element(document.body))
+                .title('¿Esta seguro que desea eliminar la pregunta?')
+                .content('Esta pregunta no se podra recuperar una vez eliminada.')
+                .ariaLabel('Esta pregunta no se podra recuperar una vez eliminada.')
+                .ok('Si')
+                .cancel('No')
+                .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function () {
+                    $scope.Delete("DELETE FROM faq WHERE ID = " + $scope.selected[0].ID);
+                    location.reload();
+                }, function () {
+                //No hacer nada
+            });
+
+            }
+        };
+    }]);

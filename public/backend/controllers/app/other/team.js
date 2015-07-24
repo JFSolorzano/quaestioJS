@@ -8,127 +8,214 @@
  * Controller of the quaestioApp
  */
 angular.module('quaestioApp')
-  .controller('TeamCTRL', ['$scope','$rootScope','$mdDialog',function ($scope,$rootScope,$mdDialog) {
+  .controller('TeamCTRL', ['$scope', '$rootScope', '$mdDialog', '$q', '$timeout', function ($scope, $rootScope, $mdDialog, $q, $timeout) {
 
     $rootScope.showSideNav = true;
     $rootScope.showToolbar = true;
 
-    //SCRUD
-        $scope.insertOrUpdate = function (query, data) {
-            $rootScope.insertOrUpdate(query, data).then(function (data) {
-                console.log(data);
-            }, function(data){});
-        };
+    $scope.Insert = function () {
+        $rootScope.Insert("INSERT INTO faq SET", {
+            Pregunta: $scope.question,
+            Respuesta: $scope.answer,
+            FechaCreacion: $scope.getDate()
+        });
+        location.reload();
+    };
 
-        $scope.delete = $rootScope.delete;
+    $scope.Delete = $rootScope.Delete;
 
-        $scope.select = function () {
-            $rootScope.select("SELECT ID, Nombre, Biografia, FechaModificacion, FechaCreacion FROM FAQ ORDER BY FechaModificacion")
-            .then(function (resolve) {
-                $scope.FaqData = resolve;
-                console.log(resolve);
-            }, function(reject){
-                var deferred = $q.defer();
-
-                $timeout(function () {
-                    deferred.reject();
-                }, 2000);
-
-                $scope.deferred = deferred.promise;
-            });
-        };
+    $scope.Select = function () {
+        $rootScope.Select("SELECT * FROM faq ORDER BY ID DESC").then(function (resolve){
+            $scope.data = resolve;
+        }, function (reject){
+            var deferred = $q.defer();
+            $timeout(function (){
+                deferred.reject();
+            }, 2000);
+            $scope.deferred = deferred.promise;
+        });
+    };
 
 
-        $scope.select();
+    $scope.Select();
+
+    $scope.query = {
+        order: 'question',
+        limit: 5,
+        page: 1
+    };
 
     $scope.selected = [];
 
-    $scope.query = {
-      order: 'member',
-      limit: 5,
-      page: 1
-    };
-
-    $scope.$watchCollection('query', function (newValue, oldValue) {
-      if(newValue === oldValue) {
-        return;
-      }
-
-      $scope.team = [
-        {
-          member: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          bio: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },
-        {
-          member: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          bio: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },
-        {
-          member: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          bio: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },
-        {
-          member: "asdasdasdasdasdasdasadasdasdasdasdasdasd?",
-          bio: "asdkahbsdolhavv;oawish c;j v;aoewcb;iauew;coabw;ouabwe'ocaew",
-        },
-
-      ];
-    });
-
-    $scope.addMember = function(ev) {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'views/team/add.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-      })
-        .then(function(data) {
-          //Agregar
-        }, function() {
-          //Cancelar
-        });
-    };
-
-    $scope.editMember = function(ev) {
-      $mdDialog.show({
-        controller: DialogController,
-        templateUrl: 'views/team/edit.html',
-        parent: angular.element(document.body),
-        targetEvent: ev,
-      })
-        .then(function(data) {
-          //Editar
-        }, function() {
-          //Cancelar
-        });
-    };
-
-    function DialogController($scope, $mdDialog) {
-      $scope.hide = function() {
-        $mdDialog.hide();
-      };
-      $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
-      $scope.add = function(data) {
-        $mdDialog.hide(data);
-      };
+    $scope.getDate = function (){
+        var date;
+        date = new Date();
+        date = date.getFullYear() + '-' +
+        ('00' + (date.getMonth()+1)).slice(-2) + '-' +
+        ('00' + date.getDate()).slice(-2) + ' ' + 
+        ('00' + date.getHours()).slice(-2) + ':' + 
+        ('00' + date.getMinutes()).slice(-2) + ':' + 
+        ('00' + date.getSeconds()).slice(-2);
+        return date;
     }
 
-    $scope.deleteMember = function(ev) {
-      var confirm = $mdDialog.confirm()
-        .parent(angular.element(document.body))
-        .title('Esta seguro que desea eliminar al integrate?')
-        .content('Este integrante no se podra recuperar una vez eliminado.')
-        .ariaLabel('Este integrante no se podra recuperar una vez eliminado.')
-        .ok('Si')
-        .cancel('No')
-        .targetEvent(ev);
-      $mdDialog.show(confirm).then(function() {
-        //Eliminar
-      }, function() {
-        //No hacer nada
-      });
+    $scope.Log = function () {
+        console.log($scope.selected[0].ID);
+        console.log($scope.selected);
+        console.log($scope.selected[0].Question);
     };
 
-  }]);
+    $scope.Search = function (predicate) {
+        $scope.filter = predicate;
+        $scope.deferredSearch = $scope.data.get($scope.query, success).$promise;
+    };
+
+    $scope.OnPageChange = function (page, limit) {
+        console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
+        console.log('Page: ' + page + ' Limit: ' + limit);
+        var deferred = $q.defer();
+        $timeout(function () {
+            deferred.resolve();
+        }, 2000);
+        return deferred.promise;
+    };
+
+    $scope.OnOrderChange = function (order) {
+        console.log('Scope Order: ' + $scope.query.order);
+        console.log('Order: ' + order);
+        var deferred = $q.defer();
+        $timeout(function () {
+            deferred.resolve();
+        }, 2000);
+        return deferred.promise;
+    };
+
+    $scope.Skip = function (item, index) {
+        return index >= ($scope.query.limit * ($scope.query.page - 1));
+    };
+
+
+        //Modal Dialogs
+        $scope.$watchCollection('query', function (newValue, oldValue) {
+            if (newValue === oldValue) {
+                return;
+            }
+        });
+
+        $scope.AddDialog = function (ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'views/faq/add.html',
+                parent: angular.element(document.body),
+                targetEvent: ev
+            });
+        };
+
+        $scope.EditDialog = function (ev) {
+            $mdDialog.show({
+                controller: EditDialogController,
+                templateUrl: 'views/faq/edit.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                locals: {
+                    record: $scope.selected[0]
+                },
+                clickOutsideToClose: true,
+                controllerAs: 'EditFaqCTRL'
+            });
+        };
+
+        function EditDialogController($scope, $mdDialog, record) {
+            $scope.record = record;
+            $scope.Update = function(){
+                $rootScope.Update(
+                    "UPDATE faq SET",
+                    "ID = "+$scope.record.ID,
+                    {
+                        Pregunta: $scope.record.Pregunta,
+                        Respuesta: $scope.record.Respuesta,
+                        FechaModificacion: $scope.getDate()
+                    }
+                    );
+                location.reload();
+            };
+
+            $scope.getDate = function (){
+                var date;
+                date = new Date();
+                date = date.getFullYear() + '-' +
+                ('00' + (date.getMonth()+1)).slice(-2) + '-' +
+                ('00' + date.getDate()).slice(-2) + ' ' + 
+                ('00' + date.getHours()).slice(-2) + ':' + 
+                ('00' + date.getMinutes()).slice(-2) + ':' + 
+                ('00' + date.getSeconds()).slice(-2);
+                return date;
+            }
+
+            $scope.hide = function (){
+                $mdDialog.hide();
+            };
+
+            $scope.cancel = function (){
+                $mdDialog.cancel();
+            };
+        }
+
+        function DialogController($scope, $mdDialog) {
+
+            $scope.hide = function (){
+                $mdDialog.hide();
+            };
+
+            $scope.cancel = function (){
+                $mdDialog.cancel();
+            };
+
+        }
+
+        $scope.DeleteDialog = function (ev) {
+
+            var x = 0;
+            for (var i = 0; i < $scope.selected.length; i++) {
+                x += 1;
+            };
+
+            if(x > 1){
+                var confirm = $mdDialog.confirm()
+                .parent(angular.element(document.body))
+                .title('¿Esta seguro que desea eliminar las preguntas seleccionadas?')
+                .content('Las preguntas no se podran recuperar una vez eliminadas.')
+                .ariaLabel('Las preguntas no se podran recuperar una vez eliminadas.')
+                .ok('Si')
+                .cancel('No')
+                .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function () {
+                    for (var i = 0; i < $scope.selected.length; i++) {
+                        $scope.Delete("DELETE FROM faq WHERE ID = " + $scope.selected[i].ID);
+                    };
+                    location.reload();
+                }, function () {
+                //No hacer nada
+            });
+
+            }else{
+                var confirm = $mdDialog.confirm()
+                .parent(angular.element(document.body))
+                .title('¿Esta seguro que desea eliminar la pregunta?')
+                .content('Esta pregunta no se podra recuperar una vez eliminada.')
+                .ariaLabel('Esta pregunta no se podra recuperar una vez eliminada.')
+                .ok('Si')
+                .cancel('No')
+                .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function () {
+                    $scope.Delete("DELETE FROM faq WHERE ID = " + $scope.selected[0].ID);
+                    location.reload();
+                }, function () {
+                //No hacer nada
+            });
+
+            }
+        };
+    }]);
